@@ -361,6 +361,80 @@
     vCheck();
   }
 
+  /* ---------- Partnership inquiry pop-up ----------
+     The buttons are plain email links, so without JavaScript they still open an email to
+     hello@welda.club. With it, they open the form, which is sent through FormSubmit. */
+  var inquiry = document.getElementById('inquiry');
+  if (inquiry && typeof inquiry.showModal === 'function') {
+    var iForm = inquiry.querySelector('form');
+    var iBody = inquiry.querySelector('.inquiry__body');
+    var iDone = inquiry.querySelector('.inquiry__done');
+    var iStatus = inquiry.querySelector('.inquiry__status');
+    var iSend = iForm.querySelector('[type="submit"]');
+    var ENDPOINT = 'https://formsubmit.co/ajax/hello@welda.club';
+
+    var setStatus = function (html, isError) {
+      iStatus.innerHTML = html;
+      iStatus.classList.toggle('is-error', !!isError);
+    };
+    var fields = function () {
+      var data = {};
+      new FormData(iForm).forEach(function (v, k) { data[k] = String(v).trim(); });
+      return data;
+    };
+    // a pre-filled email with their answers, in case sending fails
+    var mailtoFallback = function (data) {
+      var lines = ['Name', 'email', 'Phone', 'Date', 'Partnership type', 'Budget', 'Message']
+        .filter(function (k) { return data[k]; })
+        .map(function (k) { return (k === 'email' ? 'Email' : k) + ': ' + data[k]; });
+      return 'mailto:hello@welda.club?subject=' + encodeURIComponent('Partnership inquiry') +
+        '&body=' + encodeURIComponent(lines.join('\n'));
+    };
+
+    document.querySelectorAll('[data-open-inquiry]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (!iDone.hidden) { iForm.reset(); iDone.hidden = true; iBody.hidden = false; }
+        setStatus('');
+        inquiry.showModal();
+        if (lenis) lenis.stop();
+      });
+    });
+    inquiry.querySelectorAll('[data-close-inquiry]').forEach(function (btn) {
+      btn.addEventListener('click', function () { inquiry.close(); });
+    });
+    // clicking the dimmed area outside the box closes it
+    inquiry.addEventListener('click', function (e) { if (e.target === inquiry) inquiry.close(); });
+    inquiry.addEventListener('close', function () { if (lenis) lenis.start(); });
+
+    iForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var data = fields();
+      if (data._honey) { iBody.hidden = true; iDone.hidden = false; return; } // a bot filled the hidden field
+      delete data._honey;
+      iSend.disabled = true;
+      iSend.textContent = 'Sending...';
+      setStatus('');
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (String(res.success) !== 'true') throw new Error(res.message || 'not sent');
+          iBody.hidden = true;
+          iDone.hidden = false;
+          iDone.querySelector('button').focus();
+        })
+        .catch(function () {
+          setStatus('Sorry, that did not go through. Please <a href="' + mailtoFallback(data) +
+            '">email us your details</a> at hello@welda.club instead.', true);
+        })
+        .then(function () { iSend.disabled = false; iSend.textContent = 'Send inquiry'; });
+    });
+  }
+
   /* ---------- Magnetic buttons (desktop) ---------- */
   if (finePointer && !reduce) {
     document.querySelectorAll('.magnetic').forEach(function (el) {

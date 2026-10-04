@@ -312,7 +312,9 @@ html:not(.js) .marquee__track { animation: marquee 40s linear infinite; }
 
 /* Work with us (partnerships) */
 .work { border-top: 1px solid var(--line); }
-.work__intro { max-width: 44rem; margin-bottom: 4rem; }
+.work__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem 3rem; margin-bottom: 4rem; }
+.work__intro { max-width: 44rem; }
+.work__cta { flex: none; margin-top: 3.4rem; }
 .work__intro p:not(.eyebrow) { color: var(--text-soft); font-size: 1.08rem; }
 .work__label { font-family: var(--mono); font-weight: 400; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem; }
 .offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1.25rem; margin-bottom: 4.5rem; }
@@ -534,6 +536,62 @@ html:not(.js) .marquee__track { animation: marquee 40s linear infinite; }
   .gram__grid { grid-template-columns: repeat(2, 1fr); }
   .hero__foot { font-size: .68rem; }
   .hero__ctas .btn { width: 100%; text-align: center; }
+}
+
+/* Partnership inquiry pop-up */
+.inquiry {
+  padding: 0; margin: auto; border: 1px solid var(--line); border-radius: var(--radius);
+  width: min(680px, calc(100% - 2rem)); max-height: calc(100vh - 2rem); max-height: calc(100svh - 2rem);
+  overflow: auto; overscroll-behavior: contain;
+  background: var(--green-black) linear-gradient(160deg, rgba(15, 58, 25, .55), transparent 60%);
+  color: var(--text); box-shadow: 0 30px 80px rgba(0, 0, 0, .5);
+}
+.inquiry::backdrop { background: rgba(5, 22, 9, .78); backdrop-filter: blur(4px); }
+.inquiry[open] { animation: inquiry-in .5s var(--ease-out); }
+@keyframes inquiry-in { from { opacity: 0; transform: translateY(18px); } }
+.inquiry__inner { position: relative; padding: clamp(1.6rem, 4vw, 2.8rem); }
+.inquiry h2 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: .6rem; }
+.inquiry__lede { color: var(--text-soft); margin-bottom: 1.8rem; max-width: 34rem; }
+.inquiry__close {
+  position: absolute; top: 1rem; right: 1rem; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: transparent; color: var(--cream);
+  font-size: 1.5rem; line-height: 1; cursor: pointer; transition: background-color .3s, color .3s, border-color .3s;
+}
+.inquiry__close:hover, .inquiry__close:focus-visible { background: var(--gold); color: var(--green-black); border-color: var(--gold); }
+.inquiry__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.15rem 1.2rem; }
+.field--full { grid-column: 1 / -1; }
+.field label { display: block; margin-bottom: .45rem; font-family: var(--mono); font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.field label span { color: var(--text-soft); text-transform: none; letter-spacing: .04em; }
+.field input, .field select, .field textarea {
+  width: 100%; padding: .78rem .9rem; border: 1px solid rgba(228, 217, 202, .22); border-radius: var(--radius);
+  background: rgba(228, 217, 202, .04); color: var(--cream); font-family: var(--sans); font-size: 1rem; line-height: 1.4;
+  color-scheme: dark; transition: border-color .3s, background-color .3s;
+}
+.field textarea { resize: vertical; min-height: 5.5rem; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); background: rgba(228, 217, 202, .07); }
+.field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { box-shadow: 0 0 0 3px rgba(194, 161, 127, .25); }
+.field select {
+  appearance: none; -webkit-appearance: none; padding-right: 2.4rem; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23c2a17f' stroke-width='1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .95rem center;
+}
+.field select:invalid { color: rgba(228, 217, 202, .5); }
+.field select option { background: var(--green-black); color: var(--cream); }
+.inquiry__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem 1.4rem; margin-top: 1.8rem; }
+.inquiry__actions .btn { cursor: pointer; }
+.inquiry__actions .btn:disabled { opacity: .6; cursor: wait; }
+.inquiry__status { font-size: .95rem; color: var(--text-soft); }
+.inquiry__status.is-error { color: #e8b4a0; }
+.inquiry__status a { color: var(--gold); }
+.inquiry__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.inquiry__done .btn { cursor: pointer; }
+@media (max-width: 860px) {
+  .work__head { flex-direction: column; gap: 0; }
+  .work__cta { margin-top: 1.8rem; }
+}
+@media (max-width: 560px) {
+  .inquiry__grid { grid-template-columns: 1fr; }
+  .inquiry__actions .btn { width: 100%; text-align: center; }
 }
 
 /* Respect "reduce motion" settings: everything shows instantly, nothing moves */

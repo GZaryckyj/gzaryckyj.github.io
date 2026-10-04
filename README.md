@@ -94,7 +94,7 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 ## Security and search
 
 - **Content Security Policy** (top of `index.html` and `404.html`): the page may only load files
-  from welda.club, Google Fonts and Cloudflare Analytics, and inline scripts are blocked. If you
+  from welda.club, Google Fonts and Cloudflare Analytics (and send the inquiry form to FormSubmit), and inline scripts are blocked. If you
   add a new outside service (an embed, a widget), its domain must be added there or it will be
   blocked; the quality check will flag it.
 - **Referrer policy:** outside sites only see that a visitor came from welda.club, not the full URL.
@@ -124,6 +124,13 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
   visitors with reduce motion on). To swap it, export a short silent loop (10 to 30 seconds, H.264 MP4, under
   about 10 MB) and replace those files with the same names. It loads only when a visitor nears the section, plays
   muted on a loop while on screen, and has a pause button.
+- **Partnership inquiry form:** the "Partnership inquiry" button (Work with us) and "Start a partnership"
+  (Contact) open a pop-up form. Answers are emailed to `hello@welda.club` through FormSubmit
+  (formsubmit.co, free, no account). **One-time setup:** the first time the form is sent, FormSubmit emails
+  hello@welda.club an "Activate Form" link; click it, and every inquiry after that arrives as an email
+  (subject "New partnership inquiry from welda.club"; reply goes straight to the sender). To change the
+  choices, edit the `<option>` lines in the `inquiry` dialog in `index.html`. If sending ever fails, visitors
+  get a link that opens a pre-filled email instead.
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.
