@@ -87,6 +87,8 @@ automatically. To soften the grain, lower `opacity` in `.grain` in `styles.css` 
   change the city, name and partner line, point it at a new photo (e.g. `past-7.jpg`), and update the
   `/ 06` total next to it.
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
+- **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
+  Georgia's Cloudflare under Analytics & Logs, then Web Analytics.
 - **Events link:** the "Upcoming events" buttons point to `https://luma.com/user/weldaclub`.
 
 ## Please double-check before launch
