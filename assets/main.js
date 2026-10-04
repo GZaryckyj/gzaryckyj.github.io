@@ -422,7 +422,15 @@
       })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (String(res.success) !== 'true') throw new Error(res.message || 'not sent');
+          if (String(res.success) !== 'true') {
+            // FormSubmit answers this way until the "Activate Form" link it emails to hello@welda.club is clicked
+            if (/activat/i.test(res.message || '')) {
+              setStatus('Almost there: this form is waiting to be switched on. Please <a href="' + mailtoFallback(data) +
+                '">email us your details</a> at hello@welda.club for now.', true);
+              return;
+            }
+            throw new Error(res.message || 'not sent');
+          }
           iBody.hidden = true;
           iDone.hidden = false;
           iDone.querySelector('button').focus();
