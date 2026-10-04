@@ -116,7 +116,9 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
   `/ 06` total next to it.
 - **Partner logos:** add a transparent, single-color SVG (or PNG) to `assets/partners/`, then copy one
   `<li>` in the partners section of `index.html` into all four copies of the list. Set `--ar` to the
-  logo's width divided by its height and `--h` to its display height.
+  logo's width divided by its height and `--h` to its display height. When the list gets much longer,
+  raise the animation duration on `.partners__track` in `styles.css` (currently `90s` for 11 logos)
+  so the strip keeps the same gentle speed.
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.
