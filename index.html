@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welda | More than wellness</title>
+  <meta name="description" content="Welda hosts private, community and wellness-driven experiences in New York and Miami, with retreats on the horizon. Movement, conversation, adventure and community.">
+  <meta name="theme-color" content="#051609">
+
+  <!-- Social sharing preview -->
+  <meta property="og:title" content="Welda | More than wellness">
+  <meta property="og:description" content="Wellness and events in New York and Miami. Movement, conversation, adventure and community.">
+  <meta property="og:image" content="https://welda.club/assets/images/og.jpg">
+  <meta property="og:url" content="https://welda.club/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/assets/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/vendor/lenis.css">
+  <link rel="stylesheet" href="/assets/styles.css">
+
+  <!-- Turns animations on only when JavaScript runs, so the page is never blank without it -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('welda-intro')) {
+        document.documentElement.classList.add('show-intro');
+      }
+    } catch (e) {}
+  </script>
+</head>
+<body>
+
+  <!-- ============ INTRO (plays once per visit) ============ -->
+  <div class="intro" aria-hidden="true">
+    <span class="monogram intro__mark"></span>
+    <span class="intro__word">WELDACLUB</span>
+  </div>
+
+  <!-- Film grain texture over everything -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="top">
+    <div class="nav__inner">
+      <a href="#top" class="logo" aria-label="Welda Club home">WELDACLUB</a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu">
+        <span></span><span></span>
+      </button>
+      <nav id="nav-links" class="nav__links">
+        <a href="#about">About</a>
+        <a href="#experiences">Experiences</a>
+        <a href="#retreats">Retreats</a>
+        <a href="#contact">Contact</a>
+        <a href="https://luma.com/user/weldaclub" class="btn btn--small magnetic" target="_blank" rel="noopener">Upcoming events</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="hero__media" data-speed="0.25">
+        <div class="hero__img" style="--img: url('/assets/images/hero.jpg')"></div>
+      </div>
+      <div class="hero__content">
+        <span class="monogram hero__mark hero-in" style="--d:0" role="img" aria-label="Welda Club monogram"></span>
+        <p class="eyebrow hero-in" style="--d:1">We are here.</p>
+        <h1 class="split-lines">
+          <span class="line"><span class="line__inner" style="--d:2">More than</span></span>
+          <span class="line"><span class="line__inner" style="--d:3"><em>wellness.</em></span></span>
+        </h1>
+        <p class="hero__lede hero-in" style="--d:4">Movement, thoughtful conversation and beautifully curated experiences, designed to help you reset, reconnect and feel part of something deeper.</p>
+        <div class="hero__ctas hero-in" style="--d:5">
+          <a href="https://luma.com/user/weldaclub" class="btn magnetic" target="_blank" rel="noopener">See upcoming events</a>
+          <a href="#retreats" class="btn btn--ghost magnetic">Join the retreat list</a>
+        </div>
+      </div>
+      <div class="hero__foot hero-in" style="--d:6" aria-hidden="true">
+        <span>NY - Miami</span>
+        <span class="hero__scroll"><i></i>Scroll</span>
+        <span>Mindful living.</span>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Movement</span><span>Conversation</span><span>Adventure</span><span>Community</span><span>Presence</span><span>Better weekends</span>
+        <span>Movement</span><span>Conversation</span><span>Adventure</span><span>Community</span><span>Presence</span><span>Better weekends</span>
+      </div>
+    </div>
+
+    <!-- ============ MANIFESTO (words light up as you scroll) ============ -->
+    <section class="section manifesto">
+      <div class="container">
+        <p class="eyebrow center">Our belief</p>
+        <p class="manifesto__text" data-words>People are craving something deeper. Not another class to check off, but real presence, real conversation and real connection. Welda exists to bring people back to themselves, <em>and to each other.</em></p>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="container about__grid">
+        <div class="about__text">
+          <p class="eyebrow reveal">Our story</p>
+          <h2 class="reveal">A lifestyle movement for <em>better weekends.</em></h2>
+          <p class="reveal">We're redefining what it means to live well, for people who want deeper connection and slower living. Rooted in presence, not perfection or restriction.</p>
+          <p class="reveal">Whether it's a weekend gathering in Miami, a rooftop morning in New York or a retreat somewhere far away, every Welda experience is designed to create space for presence, encourage growth and cultivate connection.</p>
+        </div>
+        <div class="about__media">
+          <figure class="img-reveal photo--tall">
+            <div class="parallax-img" data-speed="0.12" style="--img: url('/assets/images/about.jpg')"></div>
+          </figure>
+          <figure class="img-reveal photo--small">
+            <div class="parallax-img" data-speed="-0.08" style="--img: url('/assets/images/about-2.jpg'); --fallback: var(--fallback-2)"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PILLARS ============ -->
+    <section class="section pillars">
+      <div class="container">
+        <p class="eyebrow center reveal">What we're about</p>
+        <h2 class="center reveal">Four things every Welda experience shares</h2>
+        <div class="pillars__grid">
+          <article class="pillar reveal">
+            <span class="pillar__num">01</span>
+            <h3>Move</h3>
+            <p>Pilates, yoga, padel, sunrise flows and breathwork. Movement that feels good, never punishing.</p>
+          </article>
+          <article class="pillar reveal">
+            <span class="pillar__num">02</span>
+            <h3>Connect</h3>
+            <p>Thoughtful conversation, journaling and new friends. You arrive solo and leave with a community.</p>
+          </article>
+          <article class="pillar reveal">
+            <span class="pillar__num">03</span>
+            <h3>Explore</h3>
+            <p>City rooftops, private beaches and, soon, destinations further afield. Adventure is part of the practice.</p>
+          </article>
+          <article class="pillar reveal">
+            <span class="pillar__num">04</span>
+            <h3>Belong</h3>
+            <p>A club in spirit: like-minded people who show up for themselves and for each other.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EXPERIENCES ============ -->
+    <section class="section experiences" id="experiences">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow reveal">Experiences</p>
+            <h2 class="reveal">From city rooftops to <em>retreat destinations</em></h2>
+          </div>
+          <a href="https://luma.com/user/weldaclub" class="link-arrow reveal" target="_blank" rel="noopener">View the calendar</a>
+        </div>
+
+        <div class="formats">
+          <article class="format reveal">
+            <figure class="img-reveal format__img">
+              <div class="parallax-img" data-speed="0.06" style="--img: url('/assets/images/format-city.jpg')"></div>
+            </figure>
+            <div class="format__body">
+              <p class="format__tag">New York</p>
+              <h3>City mornings</h3>
+              <p>Sunrise movement on the city's best rooftops, followed by coffee, conversation and a slower start to the day.</p>
+            </div>
+          </article>
+          <article class="format reveal">
+            <figure class="img-reveal format__img">
+              <div class="parallax-img" data-speed="0.06" style="--img: url('/assets/images/format-weekend.jpg'); --fallback: var(--fallback-2)"></div>
+            </figure>
+            <div class="format__body">
+              <p class="format__tag">Miami</p>
+              <h3>Weekend gatherings</h3>
+              <p>Court days, beach days and wellness workshops: curated days of movement, music and mindful luxury.</p>
+            </div>
+          </article>
+          <article class="format reveal">
+            <figure class="img-reveal format__img">
+              <div class="parallax-img" data-speed="0.06" style="--img: url('/assets/images/format-retreat.jpg'); --fallback: var(--fallback-3)"></div>
+            </figure>
+            <div class="format__body">
+              <p class="format__tag">Coming soon</p>
+              <h3>Retreats</h3>
+              <p>Transformative, immersive getaways to step out of your routine and build meaningful relationships.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="carousel__head">
+          <h3 class="subhead reveal">Past experiences</h3>
+          <div class="carousel__nav reveal">
+            <button class="carousel__btn carousel__play" aria-pressed="false" aria-label="Pause slideshow"><span class="carousel__play-icon" aria-hidden="true"></span></button>
+            <button class="carousel__btn" data-dir="-1" aria-label="Previous experiences">&larr;</button>
+            <button class="carousel__btn" data-dir="1" aria-label="Next experiences">&rarr;</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advances by itself every few seconds (pauses on hover, touch or the pause button). Swipe / drag / arrows. Photos: past-1.jpg ... past-6.jpg (portrait) in assets/images. Copy an <article> to add an event. -->
+      <div class="carousel" data-carousel>
+        <div class="carousel__track" tabindex="0" role="region" aria-label="Past experiences (scroll sideways)" data-lenis-prevent-horizontal>
+            <article class="event-card reveal">
+              <figure class="event-card__img"><div style="--img: url('/assets/images/past-1.jpg')"></div><span class="event-card__num">01</span></figure>
+              <p class="event-card__city">New York</p>
+              <h4 class="event-card__name">Morning movement on the Mandarin Oriental rooftop</h4>
+              <p class="event-card__meta">with Sanctum &amp; Vivobarefoot</p>
+            </article>
+            <article class="event-card reveal">
+              <figure class="event-card__img"><div style="--img: url('/assets/images/past-2.jpg'); --fallback: var(--fallback-2)"></div><span class="event-card__num">02</span></figure>
+              <p class="event-card__city">Miami</p>
+              <h4 class="event-card__name">The Court Experience: padel, pickleball, pilates &amp; workshops</h4>
+              <p class="event-card__meta">with Regency Padel &amp; GutYa</p>
+            </article>
+            <article class="event-card reveal">
+              <figure class="event-card__img"><div style="--img: url('/assets/images/past-3.jpg'); --fallback: var(--fallback-3)"></div><span class="event-card__num">03</span></figure>
+              <p class="event-card__city">Miami Beach</p>
+              <h4 class="event-card__name">Sunrise Rooftop Flow: yoga, breathwork &amp; journaling</h4>
+              <p class="event-card__meta">at Bon Bouquet Caf&eacute;</p>
+            </article>
+            <article class="event-card reveal">
+              <figure class="event-card__img"><div style="--img: url('/assets/images/past-4.jpg')"></div><span class="event-card__num">04</span></figure>
+              <p class="event-card__city">Miami</p>
+              <h4 class="event-card__name">Welda x Joia Beach: a private beach day of movement and music</h4>
+              <p class="event-card__meta">with Joia Beach</p>
+            </article>
+            <article class="event-card reveal">
+              <figure class="event-card__img"><div style="--img: url('/assets/images/past-5.jpg'); --fallback: var(--fallback-2)"></div><span class="event-card__num">05</span></figure>
+              <p class="event-card__city">Miami</p>
+              <h4 class="event-card__name">The Longevity Edit</h4>
+              <p class="event-card__meta">with JMUVS</p>
+            </article>
+            <article class="event-card reveal">
+              <figure class="event-card__img"><div style="--img: url('/assets/images/past-6.jpg'); --fallback: var(--fallback-3)"></div><span class="event-card__num">06</span></figure>
+              <p class="event-card__city">New York</p>
+              <h4 class="event-card__name">Rooftop Yoga &amp; Morning Social</h4>
+              <p class="event-card__meta">community morning</p>
+            </article>
+        </div>
+        <div class="container carousel__ui">
+          <div class="carousel__progress"><span></span></div>
+          <p class="carousel__count"><span class="carousel__current">01</span> / 06</p>
+        </div>
+      </div>
+      <div class="container">
+      </div>
+    </section>
+
+    <!-- ============ PARTNERS ============ -->
+    <section class="partners" aria-label="Past collaborators">
+      <p class="eyebrow center">Past collaborators</p>
+      <div class="partners__marquee">
+        <ul class="partners__track">
+          <li>Mandarin Oriental</li><li>Vivobarefoot</li><li>Sanctum</li><li>Regency Padel</li><li>GutYa</li><li>Joia Beach</li><li>JMUVS</li>
+          <li aria-hidden="true">Mandarin Oriental</li><li aria-hidden="true">Vivobarefoot</li><li aria-hidden="true">Sanctum</li><li aria-hidden="true">Regency Padel</li><li aria-hidden="true">GutYa</li><li aria-hidden="true">Joia Beach</li><li aria-hidden="true">JMUVS</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ QUOTE ============ -->
+    <section class="quote">
+      <div class="quote__media" data-speed="0.3">
+        <div class="quote__img" style="--img: url('/assets/images/quote.jpg')"></div>
+      </div>
+      <blockquote class="quote__text">
+        <p class="split-lines on-scroll">
+          <span class="line"><span class="line__inner" style="--d:0">Presence,</span></span>
+          <span class="line"><span class="line__inner" style="--d:1">not perfection.</span></span>
+        </p>
+        <cite class="reveal">The Welda way</cite>
+      </blockquote>
+    </section>
+
+    <!-- ============ RETREATS ============ -->
+    <section class="section retreats" id="retreats">
+      <div class="container retreats__grid">
+        <div class="retreats__media">
+          <figure class="img-reveal photo--tall">
+            <div class="parallax-img" data-speed="0.12" style="--img: url('/assets/images/retreat.jpg'); --fallback: var(--fallback-3)"></div>
+          </figure>
+        </div>
+        <div class="retreats__text">
+          <p class="eyebrow reveal">Retreats</p>
+          <h2 class="reveal">Step away. <em>Come back to yourself.</em></h2>
+          <p class="reveal">Welda is evolving beyond single events into transformative retreats and immersive experiences: time away from your routine to reconnect with what matters, alongside people who get it.</p>
+          <ul class="checklist">
+            <li class="reveal">Daily movement and breathwork</li>
+            <li class="reveal">Thoughtful conversation and journaling</li>
+            <li class="reveal">Beautiful places and slower days</li>
+            <li class="reveal">A small group of like-minded people</li>
+          </ul>
+          <p class="muted reveal">Destinations and dates are announced to the list first.</p>
+          <a class="btn magnetic reveal" href="mailto:hello@welda.club?subject=Retreat%20waitlist&amp;body=Hi%2C%20please%20add%20me%20to%20the%20Welda%20retreat%20list.%0A%0AName%3A%0ACity%3A%0A">Join the retreat list</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INSTAGRAM ============ -->
+    <section class="section gram">
+      <div class="container">
+        <div class="section__head">
+          <div>
+            <p class="eyebrow eyebrow--asis reveal">@weldaclub</p>
+            <h2 class="reveal">Moments from the <em>community</em></h2>
+          </div>
+          <a href="https://www.instagram.com/weldaclub/" class="link-arrow reveal" target="_blank" rel="noopener">Follow on Instagram</a>
+        </div>
+        <div class="gram__grid">
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-1.jpg')"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-2.jpg'); --fallback: var(--fallback-2)"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-3.jpg'); --fallback: var(--fallback-3)"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-4.jpg'); --fallback: var(--fallback-2)"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-5.jpg')"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-6.jpg'); --fallback: var(--fallback-3)"></span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT / PARTNER ============ -->
+    <section class="section contact" id="contact">
+      <div class="container contact__grid">
+        <div>
+          <p class="eyebrow reveal">Work with us</p>
+          <h2 class="reveal">Private events, brand partnerships <em>&amp; collaborations</em></h2>
+          <p class="reveal">From private wellness mornings to brand activations and team offsites, we design experiences people actually remember. Tell us what you have in mind.</p>
+        </div>
+        <div class="contact__card reveal">
+          <a class="contact__big" href="mailto:hello@welda.club">hello@welda.club</a>
+          <ul class="contact__links">
+            <li><a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener">Instagram <span>@weldaclub</span></a></li>
+            <li><a href="https://luma.com/user/weldaclub" target="_blank" rel="noopener">Events <span>Luma</span></a></li>
+            <li><a href="https://www.eventbrite.com/o/welda-club-113642430241" target="_blank" rel="noopener">Tickets <span>Eventbrite</span></a></li>
+          </ul>
+          <a class="btn magnetic" href="mailto:hello@welda.club?subject=Working%20with%20Welda">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>
+        <a href="#top" class="footer__brand" aria-label="Welda Club home"><span class="monogram footer__mark"></span></a>
+        <p class="footer__tag">More than wellness. NY - Miami. Est. 2025.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Footer">
+        <a href="#about">About</a>
+        <a href="#experiences">Experiences</a>
+        <a href="#retreats">Retreats</a>
+        <a href="#contact">Contact</a>
+        <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
+    <div class="footer__word" aria-hidden="true"><span>WELDACLUB</span></div>
+    <p class="footer__legal container">&copy; <span id="year">2026</span> Welda Club. All rights reserved.</p>
+  </footer>
+
+  <script src="/assets/vendor/lenis.min.js" defer></script>
+  <script src="/assets/main.js" defer></script>
+</body>
+</html>
