@@ -68,21 +68,30 @@
 
   /* ---------- Reveal on scroll (with a gentle stagger) ---------- */
   var revealEls = document.querySelectorAll('.reveal, .img-reveal, .split-lines.on-scroll, .footer__word');
+  // Photos start fully clipped (the curtain), and Chrome/Edge treat a fully clipped element as
+  // never on screen. So for photos we watch their unclipped container and reveal the photo(s) inside.
+  var watchMap = new Map();
+  revealEls.forEach(function (el) {
+    var watched = el.classList.contains('img-reveal') ? el.parentElement : el;
+    if (!watchMap.has(watched)) watchMap.set(watched, []);
+    watchMap.get(watched).push(el);
+  });
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       var i = 0;
       entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        var el = e.target;
-        if (el.classList.contains('reveal') && !el.style.transitionDelay) el.style.transitionDelay = (i * 90) + 'ms';
-        el.classList.add('is-visible');
-        io.unobserve(el);
-        // clear the stagger once it has played, so hover effects respond instantly
-        setTimeout(function () { el.style.transitionDelay = ''; }, 1600);
+        (watchMap.get(e.target) || []).forEach(function (el) {
+          if (el.classList.contains('reveal') && !el.style.transitionDelay) el.style.transitionDelay = (i * 90) + 'ms';
+          el.classList.add('is-visible');
+          // clear the stagger once it has played, so hover effects respond instantly
+          setTimeout(function () { el.style.transitionDelay = ''; }, 1600);
+        });
+        io.unobserve(e.target);
         i++;
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach(function (el) { io.observe(el); });
+    watchMap.forEach(function (_, watched) { io.observe(watched); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
   }
