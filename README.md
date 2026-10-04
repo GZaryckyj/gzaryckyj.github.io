@@ -66,7 +66,8 @@ Inspired by luxury wellness sites like Remedy Place (smooth scrolling, moody eme
 - **Manifesto:** "Our belief" text lights up word by word as you scroll.
 - **Photos:** open with a curtain wipe and a slow zoom-out, then drift slightly slower than the page (parallax).
 - **Marquee:** the scrolling word band speeds up when you scroll.
-- **Past experiences carousel:** swipe on phones; drag, arrow buttons, trackpad or keyboard arrows on desktop.
+- **Past experiences carousel:** drifts slowly and continuously in an endless loop (pauses on hover, touch or the
+  pause button; change `SPEED` in `assets/main.js`). Swipe on phones; drag, arrows, trackpad or keyboard on desktop.
   Photos drift slightly as cards slide past, with a gold progress bar and an "01 / 06" counter.
 - **Details:** magnetic buttons, gold underline sweeps, cards that lift, a header that tucks away when you
   scroll down and returns when you scroll up, a subtle film-grain texture, and an outlined WELDACLUB wordmark

@@ -2,7 +2,7 @@
 // - intro (once per visit), smooth scrolling (Lenis), hero entrance
 // - reveal on scroll, image curtain reveals, parallax
 // - manifesto words that light up, scroll-reactive marquee
-// - hiding nav, past experiences carousel (autoplay, swipe, drag, arrows), magnetic buttons
+// - hiding nav, past experiences carousel (continuous drift, swipe, drag, arrows), magnetic buttons
 // Everything is skipped for visitors who have "reduce motion" turned on.
 
 (function () {
@@ -173,33 +173,54 @@
   requestAnimationFrame(frame);
 
   /* ---------- Past experiences carousel ---------- */
+  // Drifts slowly and continuously, looping forever (the cards are duplicated once so the
+  // end flows straight back into the start). Pauses on hover, focus, touch/drag, the pause
+  // button, when off screen or the tab is hidden. Arrows, swipe, drag and keyboard still work.
+  var SPEED = 35; // pixels per second; raise for faster, lower for slower
   var carousel = document.querySelector('[data-carousel]');
   if (carousel) {
     var trackEl = carousel.querySelector('.carousel__track');
-    var cards = trackEl.querySelectorAll('.event-card');
+    var originals = Array.prototype.slice.call(trackEl.querySelectorAll('.event-card'));
+    var count = originals.length;
     var bar = carousel.querySelector('.carousel__progress span');
     var current = carousel.querySelector('.carousel__current');
     var prevBtn = document.querySelector('.carousel__btn[data-dir="-1"]');
     var nextBtn = document.querySelector('.carousel__btn[data-dir="1"]');
+    var playBtn = document.querySelector('.carousel__play');
+
+    // duplicate the set once for a seamless loop (hidden from screen readers)
+    originals.forEach(function (card) {
+      var c = card.cloneNode(true);
+      c.classList.remove('reveal');
+      c.style.transitionDelay = '';
+      c.setAttribute('aria-hidden', 'true');
+      trackEl.appendChild(c);
+    });
+    var allCards = trackEl.querySelectorAll('.event-card');
 
     function step() {
       var gap = parseFloat(getComputedStyle(trackEl).columnGap) || 20;
-      return cards[0].getBoundingClientRect().width + gap;
+      return originals[0].getBoundingClientRect().width + gap;
     }
+    function setWidth() { return allCards[count].offsetLeft - allCards[0].offsetLeft; }
+    // keep the position inside the first copy so there is always room to keep moving
+    function wrap() {
+      var w = setWidth();
+      if (trackEl.scrollLeft >= w) trackEl.scrollLeft -= w;
+      else if (trackEl.scrollLeft < 1 && w) trackEl.scrollLeft += w;
+    }
+
     function update() {
-      var max = trackEl.scrollWidth - trackEl.clientWidth;
-      var ratio = max > 0 ? trackEl.scrollLeft / max : 0;
-      bar.style.transform = 'scaleX(' + Math.max(0.08, ratio).toFixed(3) + ')';
-      var idx = Math.min(cards.length - 1, Math.round(trackEl.scrollLeft / step()));
-      if (ratio > 0.99) idx = cards.length - 1;
-      current.textContent = String(idx + 1).padStart(2, '0');
-      prevBtn.disabled = trackEl.scrollLeft < 5;
-      nextBtn.disabled = trackEl.scrollLeft > max - 5;
+      var w = setWidth() || 1;
+      var pos = ((trackEl.scrollLeft % w) + w) % w;
+      bar.style.transform = 'scaleX(' + Math.max(0.06, pos / w).toFixed(3) + ')';
+      current.textContent = String((Math.round(pos / step()) % count) + 1).padStart(2, '0');
       // each photo drifts a little as its card slides past
       if (!reduce) {
         var mid = window.innerWidth / 2;
-        cards.forEach(function (c) {
+        allCards.forEach(function (c) {
           var r = c.getBoundingClientRect();
+          if (r.right < -200 || r.left > window.innerWidth + 200) return;
           var off = ((r.left + r.width / 2) - mid) / window.innerWidth;
           c.querySelector('.event-card__img > div').style.transform = 'translate3d(' + (off * -9).toFixed(2) + '%,0,0)';
         });
@@ -209,16 +230,29 @@
     window.addEventListener('resize', update);
     update();
 
+    // pause / resume bookkeeping
+    var userPaused = reduce, hovering = false, focused = false, inView = false, holdUntil = 0, smoothUntil = 0;
+    function hold(ms) { holdUntil = Date.now() + (ms || 3000); }
+    function setPlayState() {
+      if (!playBtn) return;
+      playBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
+      playBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+      playBtn.classList.toggle('is-paused', userPaused);
+    }
+
+    // arrows and keyboard: glide one card
+    function nudge(dir) {
+      wrap();
+      if (dir < 0 && trackEl.scrollLeft < step()) trackEl.scrollLeft += setWidth();
+      trackEl.scrollBy({ left: step() * dir, behavior: reduce ? 'auto' : 'smooth' });
+      smoothUntil = Date.now() + 900;
+      hold(4000);
+    }
     [prevBtn, nextBtn].forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        trackEl.scrollBy({ left: step() * parseInt(btn.getAttribute('data-dir'), 10), behavior: reduce ? 'auto' : 'smooth' });
-      });
+      btn.addEventListener('click', function () { nudge(parseInt(btn.getAttribute('data-dir'), 10)); });
     });
     trackEl.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-        e.preventDefault();
-        trackEl.scrollBy({ left: step() * (e.key === 'ArrowRight' ? 1 : -1), behavior: reduce ? 'auto' : 'smooth' });
-      }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); nudge(e.key === 'ArrowRight' ? 1 : -1); }
     });
 
     // click-and-drag with the mouse (touch devices swipe natively)
@@ -239,49 +273,48 @@
       if (!down) return;
       down = false;
       if (!trackEl.classList.contains('is-dragging')) return;
-      // a little momentum, then let snapping settle on the nearest card
-      var target = trackEl.scrollLeft - vel * 8;
       trackEl.classList.remove('is-dragging');
-      trackEl.scrollTo({ left: Math.round(target / step()) * step(), behavior: reduce ? 'auto' : 'smooth' });
+      trackEl.scrollBy({ left: -vel * 8, behavior: reduce ? 'auto' : 'smooth' }); // a little momentum
+      smoothUntil = Date.now() + 700;
+      hold(3000);
     });
     trackEl.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    ['pointerdown', 'touchstart', 'wheel'].forEach(function (ev) {
+      trackEl.addEventListener(ev, function () { hold(3000); }, { passive: true });
+    });
 
-    // Autoplay: one card every few seconds, looping back to the start.
-    // Pauses while hovered or focused, for a while after any manual swipe / drag / arrow,
-    // when the carousel is off screen or the tab is hidden, and whenever the pause button is used.
-    var AUTOPLAY_MS = 4000;
-    var playBtn = carousel.parentElement.querySelector('.carousel__play') || document.querySelector('.carousel__play');
-    var userPaused = reduce, hovering = false, focused = false, inView = false, holdUntil = 0;
-    function setPlayState() {
-      if (!playBtn) return;
-      playBtn.setAttribute('aria-pressed', userPaused ? 'true' : 'false');
-      playBtn.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
-      playBtn.classList.toggle('is-paused', userPaused);
-    }
-    function hold() { holdUntil = Date.now() + 8000; }
-    function advance() {
-      if (userPaused || hovering || focused || !inView || document.hidden || Date.now() < holdUntil) return;
-      if (trackEl.classList.contains('is-dragging')) return;
-      var max = trackEl.scrollWidth - trackEl.clientWidth;
-      if (trackEl.scrollLeft >= max - 5) trackEl.scrollTo({ left: 0, behavior: 'smooth' });
-      else trackEl.scrollBy({ left: step(), behavior: 'smooth' });
-    }
-    setInterval(advance, AUTOPLAY_MS);
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; }, { threshold: 0.35 }).observe(trackEl);
+      new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; }, { threshold: 0.2 }).observe(trackEl);
     } else { inView = true; }
     carousel.addEventListener('mouseenter', function () { hovering = true; });
-    carousel.addEventListener('mouseleave', function () { hovering = false; hold(); });
+    carousel.addEventListener('mouseleave', function () { hovering = false; });
     trackEl.addEventListener('focusin', function () { focused = true; });
     trackEl.addEventListener('focusout', function () { focused = false; });
-    ['pointerdown', 'touchstart', 'wheel', 'keydown'].forEach(function (ev) {
-      trackEl.addEventListener(ev, hold, { passive: true });
-    });
-    [prevBtn, nextBtn].forEach(function (btn) { btn.addEventListener('click', hold); });
     if (playBtn) {
       playBtn.addEventListener('click', function () { userPaused = !userPaused; holdUntil = 0; setPlayState(); });
       setPlayState();
     }
+
+    // the continuous drift
+    var pos = trackEl.scrollLeft, lastT = 0;
+    function drift(t) {
+      var dt = lastT ? Math.min(64, t - lastT) / 1000 : 0;
+      lastT = t;
+      var now = Date.now();
+      var moving = !userPaused && !hovering && !focused && inView && !document.hidden &&
+                   now > holdUntil && now > smoothUntil && !down && !trackEl.classList.contains('is-dragging');
+      if (moving) {
+        pos += SPEED * dt;
+        var w = setWidth();
+        if (w && pos >= w) pos -= w;
+        trackEl.scrollLeft = pos;
+      } else {
+        if (now > smoothUntil && !down) wrap();
+        pos = trackEl.scrollLeft;   // pick up from wherever the visitor left it
+      }
+      requestAnimationFrame(drift);
+    }
+    requestAnimationFrame(drift);
   }
 
   /* ---------- Magnetic buttons (desktop) ---------- */
