@@ -15,6 +15,10 @@ A fast, single-page static site for Welda, hosted free on GitHub Pages.
 | `assets/images/` | Photos go here (see below) |
 | `CNAME` | Tells GitHub Pages to serve the site at `welda.club` |
 | `404.html` | "Page not found" page |
+| `robots.txt`, `sitemap.xml` | Tell search engines what to index |
+| `assets/head.js` | Tiny script that runs before the page draws (animations and intro) |
+| `assets/logo.png` | Square logo used by search engines |
+| `tests/qa.mjs`, `.github/workflows/qa.yml` | Automatic quality checks (see "Quality checks" below) |
 
 ## 1. Add the photos
 
@@ -75,6 +79,29 @@ Inspired by luxury wellness sites like Remedy Place (smooth scrolling, moody eme
 
 Visitors who have "reduce motion" turned on in their device settings get a calm, fully static version
 automatically. To soften the grain, lower `opacity` in `.grain` in `styles.css` (set `display: none` to remove it).
+
+## Quality checks
+
+Every change pushed to `main` (and every pull request, plus every Monday) runs **Site QA** in the
+repo's **Actions** tab. It opens the site in Chrome, Firefox and Safari (WebKit) at desktop and phone
+sizes and fails (red X) if there are JavaScript errors, security-policy violations, missing files,
+photos or text that never appear when scrolling, sideways scrolling on phones, a stopped carousel,
+critical accessibility problems, or dead outside links. Screenshots and the report are saved with
+each run (open the run, then "Artifacts"). Run it by hand any time from Actions, "Site QA",
+"Run workflow".
+
+## Security and search
+
+- **Content Security Policy** (top of `index.html` and `404.html`): the page may only load files
+  from welda.club, Google Fonts and Cloudflare Analytics, and inline scripts are blocked. If you
+  add a new outside service (an embed, a widget), its domain must be added there or it will be
+  blocked; the quality check will flag it.
+- **Referrer policy:** outside sites only see that a visitor came from welda.club, not the full URL.
+- **Search:** `robots.txt`, `sitemap.xml`, a canonical URL, and structured data (the
+  `application/ld+json` block in `index.html`) describing Welda Club, its logo, email and social
+  profiles. Update the `<lastmod>` date in `sitemap.xml` after big content changes.
+- Frame protection (stopping other sites embedding welda.club) needs a server header, which
+  GitHub Pages cannot send; the risk is low because the site has no logins or forms.
 
 ## Editing later
 

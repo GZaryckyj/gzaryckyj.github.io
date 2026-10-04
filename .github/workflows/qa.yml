@@ -1,0 +1,43 @@
+# Automatic quality checks for welda.club.
+# Runs on every change to main, on pull requests, every Monday morning (to catch outside links
+# that stop working) and on demand (Actions tab, "Site QA", "Run workflow").
+# A red X in the Actions tab means something broke; open the run to see the report and screenshots.
+name: Site QA
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 13 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install test tools
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.56.1 axe-core@4.10.3
+          npx playwright install --with-deps chromium firefox webkit
+
+      - name: Check the site in Chrome, Firefox and Safari
+        run: node tests/qa.mjs
+
+      - name: Save screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: qa-results
+          path: qa-results/
+          retention-days: 14

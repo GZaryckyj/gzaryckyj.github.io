@@ -3,9 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Security: only load files from this site, Google Fonts and Cloudflare Analytics -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://static.cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Welda | More than wellness</title>
   <meta name="description" content="Welda hosts private, community and wellness-driven experiences in New York and Miami, with retreats on the horizon. Movement, conversation, adventure and community.">
   <meta name="theme-color" content="#051609">
+  <link rel="canonical" href="https://welda.club/">
 
   <!-- Social sharing preview -->
   <meta property="og:title" content="Welda | More than wellness">
@@ -13,6 +17,7 @@
   <meta property="og:image" content="https://welda.club/assets/images/og.jpg">
   <meta property="og:url" content="https://welda.club/">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Welda">
   <meta name="twitter:card" content="summary_large_image">
 
   <link rel="icon" href="/assets/favicon.png" type="image/png">
@@ -23,14 +28,52 @@
   <link rel="stylesheet" href="/assets/vendor/lenis.css">
   <link rel="stylesheet" href="/assets/styles.css">
 
-  <!-- Turns animations on only when JavaScript runs, so the page is never blank without it -->
-  <script>
-    document.documentElement.classList.add('js');
-    try {
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('welda-intro')) {
-        document.documentElement.classList.add('show-intro');
+  <!-- Turns animations on only when JavaScript runs (see the file for details) -->
+  <script src="/assets/head.js"></script>
+  <!-- Structured data: tells search engines who Welda is -->
+  <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://welda.club/#org",
+        "name": "Welda Club",
+        "alternateName": "Welda",
+        "url": "https://welda.club/",
+        "logo": "https://welda.club/assets/logo.png",
+        "image": "https://welda.club/assets/images/og.jpg",
+        "description": "Welda hosts private, community and wellness-driven experiences in New York and Miami, with retreats on the horizon.",
+        "slogan": "More than wellness.",
+        "foundingDate": "2025",
+        "email": "hello@welda.club",
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "New York"
+          },
+          {
+            "@type": "City",
+            "name": "Miami"
+          }
+        ],
+        "sameAs": [
+          "https://www.instagram.com/weldaclub/",
+          "https://luma.com/user/weldaclub",
+          "https://www.eventbrite.com/o/welda-club-113642430241"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://welda.club/#site",
+        "url": "https://welda.club/",
+        "name": "Welda",
+        "publisher": {
+          "@id": "https://welda.club/#org"
+        }
       }
-    } catch (e) {}
+    ]
+  }
   </script>
 </head>
 <body>

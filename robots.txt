@@ -1,0 +1,5 @@
+# Welda: everyone may crawl the site
+User-agent: *
+Allow: /
+
+Sitemap: https://welda.club/sitemap.xml
