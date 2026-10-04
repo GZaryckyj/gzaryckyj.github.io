@@ -127,8 +127,8 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 The copy was written from Welda's public pages and past event listings. Confirm:
 
 - Past experiences (Sanctum, Regency Padel, GutYa, Joia Beach, JMUVS) are OK to list publicly.
-- The "Trusted by" logo strip uses the partners from the partnerships deck: Mandarin Oriental,
-  Vivobarefoot, 1 Hotel Brooklyn Bridge, Gotham Gym and Free People Movement.
+- The "Trusted by" logo strip shows Mandarin Oriental, Sanctum, Vivobarefoot, 1 Hotel Brooklyn Bridge,
+  Gotham Gym and Free People Movement.
 - Both "Join the retreat list" buttons open the Flodesk sign-up form
   (`https://weldaclubretreat.myflodesk.com/retreatform01`) in a new tab.
 - The contact buttons open an email to `hello@welda.club`. Make sure that address exists
