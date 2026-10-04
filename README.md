@@ -86,6 +86,7 @@ automatically. To soften the grain, lower `opacity` in `.grain` in `styles.css` 
 - **Add a past event:** in `index.html`, copy one `<article class="event-card ...">` block inside the carousel,
   change the city, name and partner line, point it at a new photo (e.g. `past-7.jpg`), and update the
   `/ 06` total next to it.
+- **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Events link:** the "Upcoming events" buttons point to `https://luma.com/user/weldaclub`.
 
 ## Please double-check before launch
@@ -94,5 +95,7 @@ The copy was written from Welda's public pages and past event listings. Confirm:
 
 - Past experiences and collaborator names (Mandarin Oriental, Vivobarefoot, Sanctum, Regency Padel,
   GutYa, Joia Beach, JMUVS) are all OK to list publicly.
-- The retreat list and contact buttons open an email to `hello@welda.club`. Make sure that address exists
+- Both "Join the retreat list" buttons open the Flodesk sign-up form
+  (`https://weldaclubretreat.myflodesk.com/retreatform01`) in a new tab.
+- The contact buttons open an email to `hello@welda.club`. Make sure that address exists
   in Google Workspace (as an alias or group) so messages are delivered.
