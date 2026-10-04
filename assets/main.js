@@ -391,10 +391,50 @@
         '&body=' + encodeURIComponent(lines.join('\n'));
     };
 
+    // Phone: US numbers format as you type, (555) 123-4567. Numbers starting with + are left as typed.
+    var phone = iForm.querySelector('#iq-phone');
+    var phoneDigits = '';
+    var formatUS = function (d) {
+      var cc = '';
+      if (d.length === 11 && d.charAt(0) === '1') { cc = '+1 '; d = d.slice(1); }
+      if (d.length > 10) return d;                     // too long for a US number: leave it alone
+      if (d.length < 4) return cc + d;
+      if (d.length < 7) return cc + '(' + d.slice(0, 3) + ') ' + d.slice(3);
+      return cc + '(' + d.slice(0, 3) + ') ' + d.slice(3, 6) + '-' + d.slice(6);
+    };
+    var checkPhone = function () {
+      var v = phone.value, n = v.replace(/\D/g, '').length;
+      var ok = !v || (v.charAt(0) === '+' ? n >= 8 && n <= 15 : n === 10 || (n === 11 && v.replace(/\D/g, '').charAt(0) === '1'));
+      phone.setCustomValidity(ok ? '' : 'Please enter a full phone number, like (555) 123-4567.');
+    };
+    phone.addEventListener('input', function (e) {
+      var v = phone.value;
+      var lead = v.replace(/^\s+/, '');
+      if (lead.charAt(0) === '+') {                  // international: just tidy stray characters
+        phone.value = '+' + lead.slice(1).replace(/[^\d\s().-]/g, '');
+      } else {
+        var caret = phone.selectionStart || 0;
+        var before = v.slice(0, caret).replace(/\D/g, '').length;
+        var d = v.replace(/\D/g, '');
+        // backspacing over a bracket, space or dash removes the digit before it instead
+        if (e.inputType === 'deleteContentBackward' && d === phoneDigits && before > 0) {
+          d = d.slice(0, before - 1) + d.slice(before);
+          before--;
+        }
+        var out = formatUS(d);
+        phone.value = out;
+        var pos = 0, seen = 0;
+        while (pos < out.length && seen < before) { if (/\d/.test(out.charAt(pos))) seen++; pos++; }
+        if (document.activeElement === phone) phone.setSelectionRange(pos, pos);
+      }
+      phoneDigits = phone.value.replace(/\D/g, '');
+      checkPhone();
+    });
+
     document.querySelectorAll('[data-open-inquiry]').forEach(function (btn) {
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        if (!iDone.hidden) { iForm.reset(); iDone.hidden = true; iBody.hidden = false; }
+        if (!iDone.hidden) { iForm.reset(); phoneDigits = ''; checkPhone(); iDone.hidden = true; iBody.hidden = false; }
         setStatus('');
         inquiry.showModal();
         if (lenis) lenis.stop();

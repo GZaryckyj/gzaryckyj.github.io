@@ -568,6 +568,7 @@ html:not(.js) .marquee__track { animation: marquee 40s linear infinite; }
   color-scheme: dark; transition: border-color .3s, background-color .3s;
 }
 .field textarea { resize: vertical; min-height: 5.5rem; }
+.field input::placeholder { color: rgba(228, 217, 202, .32); }
 .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); background: rgba(228, 217, 202, .07); }
 .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { box-shadow: 0 0 0 3px rgba(194, 161, 127, .25); }
 .field select {
