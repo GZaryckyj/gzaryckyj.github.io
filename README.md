@@ -127,7 +127,8 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.
-- **Events link:** the "Upcoming events" buttons point to `https://luma.com/user/weldaclub`.
+- **Events link:** the "Events" menu link, "View the calendar" and the Contact list point to `https://luma.com/user/weldaclub`.
+- **Gold buttons:** the header and hero gold buttons say "Work with us" and jump to the `#work` section.
 
 ## Please double-check before launch
 
