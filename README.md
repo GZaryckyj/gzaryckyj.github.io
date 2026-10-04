@@ -36,7 +36,7 @@ Export photos from Google Drive / Instagram, rename them exactly as below, and d
 | `format-weekend.jpg` | "Weekend gatherings" card | Miami court or beach day |
 | `format-retreat.jpg` | "Retreats" card | Nature, travel, a destination |
 | `quote.jpg` | "Presence, not perfection" banner | Calm, wide, not busy |
-| `retreat.jpg` | Retreats section (tall) | Scenic or a slow moment |
+| `retreat.jpg` | Not shown at the moment (the Retreats section uses the video below) | Spare scenic shot |
 | `gallery-1.jpg` to `gallery-6.jpg` | Instagram grid | Six favorite Instagram posts (square) |
 | `past-1.jpg` to `past-6.jpg` | Past experiences carousel | One photo per event, in carousel order (portrait, about 4:5) |
 
@@ -119,6 +119,11 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
   logo's width divided by its height and `--h` to its display height. When the list gets much longer,
   raise the animation duration on `.partners__track` in `styles.css` (currently `90s` for 11 logos)
   so the strip keeps the same gentle speed.
+- **Retreat video:** lives in `assets/video/`: `jamaica-retreat.mp4` (1080p, desktop),
+  `jamaica-retreat-720.mp4` (phones) and `jamaica-retreat-poster.jpg` (the still shown before it plays and for
+  visitors with reduce motion on). To swap it, export a short silent loop (10 to 30 seconds, H.264 MP4, under
+  about 10 MB) and replace those files with the same names. It loads only when a visitor nears the section, plays
+  muted on a loop while on screen, and has a pause button.
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.

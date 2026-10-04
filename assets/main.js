@@ -334,6 +334,33 @@
     requestAnimationFrame(drift);
   }
 
+  /* ---------- Retreat video: loads as you approach, plays only while on screen ---------- */
+  var film = document.querySelector('.retreats__film');
+  var video = film && film.querySelector('video');
+  if (video) {
+    var vBtn = film.querySelector('.video-toggle');
+    var vPaused = reduce, vOnScreen = false;  // reduce motion: shows the still until play is pressed
+    var vSync = function () {
+      var want = vOnScreen && !vPaused && !document.hidden;
+      if (want && video.paused) { var p = video.play(); if (p && p.catch) p.catch(function () {}); }
+      else if (!want && !video.paused) video.pause();
+      vBtn.classList.toggle('is-paused', vPaused);
+      vBtn.setAttribute('aria-pressed', vPaused ? 'true' : 'false');
+    };
+    var vCheck = function () {
+      var r = film.getBoundingClientRect(), h = window.innerHeight;
+      if (video.preload === 'none' && r.top < h * 2 && r.bottom > -h) video.preload = 'auto';
+      var on = r.top < h && r.bottom > 0;
+      if (on !== vOnScreen) { vOnScreen = on; vSync(); }
+    };
+    vBtn.addEventListener('click', function () { vPaused = !vPaused; vSync(); });
+    document.addEventListener('visibilitychange', vSync);
+    window.addEventListener('scroll', function () { requestAnimationFrame(vCheck); }, { passive: true });
+    window.addEventListener('resize', vCheck);
+    vSync();
+    vCheck();
+  }
+
   /* ---------- Magnetic buttons (desktop) ---------- */
   if (finePointer && !reduce) {
     document.querySelectorAll('.magnetic').forEach(function (el) {

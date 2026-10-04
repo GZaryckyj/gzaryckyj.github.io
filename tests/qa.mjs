@@ -40,7 +40,8 @@ const warn = (where, msg) => warnings.push(`[${where}] ${msg}`);
 // ---------- tiny static server (same as GitHub Pages: files from the repo root) ----------
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript',
   '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
-  '.xml': 'application/xml', '.txt': 'text/plain', '.json': 'application/json' };
+  '.xml': 'application/xml', '.txt': 'text/plain', '.json': 'application/json',
+  '.mp4': 'video/mp4', '.webm': 'video/webm' };
 const server = http.createServer((req, res) => {
   let p = decodeURIComponent(new URL(req.url, 'http://x').pathname);
   if (p.endsWith('/')) p += 'index.html';
@@ -83,6 +84,9 @@ for (const browserName of BROWSERS) {
       if (r.url().startsWith(BASE) && r.status() >= 400) fail(where, `missing file (${r.status()}): ${r.url().replace(BASE, '')}`);
     });
     page.on('requestfailed', r => {
+      // browsers routinely cancel video downloads (seeking, pausing, or a codec the test browser
+      // lacks), so a cancelled video request is normal; a missing video still fails as a 404 above
+      if (/\.(mp4|webm)$/.test(r.url()) && /abort/i.test(r.failure()?.errorText || '')) return;
       if (r.url().startsWith(BASE)) fail(where, `file failed to load: ${r.url().replace(BASE, '')}`);
     });
 

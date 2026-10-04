@@ -403,11 +403,16 @@
     </section>
 
     <!-- ============ RETREATS ============ -->
-    <section class="section retreats" id="retreats">
-      <div class="container retreats__grid">
+    <section class="retreats" id="retreats">
+      <div class="retreats__split">
         <div class="retreats__media">
-          <figure class="img-reveal photo--tall">
-            <div class="parallax-img" data-speed="0.12" style="--img: url('/assets/images/retreat.jpg'); --fallback: var(--fallback-3)"></div>
+          <figure class="retreats__film img-reveal">
+            <video class="retreats__video" muted loop playsinline preload="none" poster="/assets/video/jamaica-retreat-poster.jpg" aria-label="Highlights from the inaugural Welda retreat in Jamaica">
+              <source src="/assets/video/jamaica-retreat-720.mp4" type="video/mp4" media="(max-width: 860px)">
+              <source src="/assets/video/jamaica-retreat.mp4" type="video/mp4">
+            </video>
+            <figcaption class="retreats__caption">Inaugural retreat, Jamaica</figcaption>
+            <button class="video-toggle" type="button" aria-pressed="false" aria-label="Pause video"><span class="carousel__play-icon" aria-hidden="true"></span></button>
           </figure>
         </div>
         <div class="retreats__text">
