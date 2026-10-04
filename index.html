@@ -568,8 +568,12 @@
         <form class="inquiry__form" action="https://api.web3forms.com/submit" method="POST">
           <div class="inquiry__grid">
             <div class="field">
-              <label for="iq-name">Name</label>
-              <input id="iq-name" name="Name" type="text" autocomplete="name" required>
+              <label for="iq-name">Full name</label>
+              <input id="iq-name" name="Full name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="iq-company">Company / Brand</label>
+              <input id="iq-company" name="Company / Brand" type="text" autocomplete="organization" required>
             </div>
             <div class="field">
               <label for="iq-email">Email</label>
@@ -579,11 +583,7 @@
               <label for="iq-phone">Phone number</label>
               <input id="iq-phone" name="Phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(555) 123-4567" maxlength="24" required>
             </div>
-            <div class="field">
-              <label for="iq-date">Date</label>
-              <input id="iq-date" name="Date" type="date" required>
-            </div>
-            <div class="field">
+            <div class="field field--full">
               <label for="iq-type">Partnership type</label>
               <select id="iq-type" name="Partnership type" required>
                 <option value="" disabled selected>Select one</option>
@@ -593,6 +593,10 @@
                 <option>Event Production &amp; Planning</option>
                 <option>Content Management</option>
               </select>
+            </div>
+            <div class="field">
+              <label for="iq-date">Event date</label>
+              <input id="iq-date" name="Event date" type="date" required>
             </div>
             <div class="field">
               <label for="iq-budget">Budget</label>

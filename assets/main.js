@@ -384,7 +384,7 @@
     };
     // a pre-filled email with their answers, in case sending fails
     var mailtoFallback = function (data) {
-      var lines = ['Name', 'email', 'Phone', 'Date', 'Partnership type', 'Budget', 'Message']
+      var lines = ['Full name', 'Company / Brand', 'email', 'Phone', 'Partnership type', 'Event date', 'Budget', 'Message']
         .filter(function (k) { return data[k]; })
         .map(function (k) { return (k === 'email' ? 'Email' : k) + ': ' + data[k]; });
       return 'mailto:hello@welda.club?subject=' + encodeURIComponent('Partnership inquiry') +
