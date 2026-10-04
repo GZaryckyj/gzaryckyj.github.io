@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Security: only load files from this site, Google Fonts and Cloudflare Analytics -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://static.cloudflareinsights.com https://formsubmit.co; object-src 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://static.cloudflareinsights.com https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Welda | More than wellness</title>
   <meta name="description" content="Welda Club is a lifestyle wellness community of 2,000+ members across New York and South Florida, hosting thoughtfully curated events, destination retreats and brand partnerships.">
@@ -556,7 +556,8 @@
   </main>
 
   <!-- ============ PARTNERSHIP INQUIRY (pop-up form) ============
-       Sent through FormSubmit (formsubmit.co) to hello@welda.club; see README "Partnership inquiry form". -->
+       Sent through Web3Forms (web3forms.com) to hello@welda.club; see README "Partnership inquiry form".
+       The access key below is designed to be public: it can only send to the address it was issued for. -->
   <dialog class="inquiry" id="inquiry" aria-labelledby="inquiry-title" data-lenis-prevent>
     <div class="inquiry__inner">
       <button class="inquiry__close" type="button" data-close-inquiry aria-label="Close">&times;</button>
@@ -564,7 +565,7 @@
         <p class="eyebrow">Work with us</p>
         <h2 id="inquiry-title">Partnership <em>inquiry</em></h2>
         <p class="inquiry__lede">Tell us a little about what you have in mind and the Welda team will get back to you.</p>
-        <form class="inquiry__form" action="https://formsubmit.co/hello@welda.club" method="POST">
+        <form class="inquiry__form" action="https://api.web3forms.com/submit" method="POST">
           <div class="inquiry__grid">
             <div class="field">
               <label for="iq-name">Name</label>
@@ -609,10 +610,10 @@
               <textarea id="iq-message" name="Message" rows="3"></textarea>
             </div>
           </div>
-          <input type="hidden" name="_subject" value="New partnership inquiry from welda.club">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <div class="inquiry__hp" aria-hidden="true"><label>Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="access_key" value="PASTE-WEB3FORMS-ACCESS-KEY-HERE">
+          <input type="hidden" name="subject" value="New partnership inquiry from welda.club">
+          <input type="hidden" name="from_name" value="Welda website">
+          <div class="inquiry__hp" aria-hidden="true"><label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>
           <div class="inquiry__actions">
             <button class="btn" type="submit">Send inquiry</button>
             <p class="inquiry__status" role="status" aria-live="polite"></p>

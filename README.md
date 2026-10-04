@@ -94,7 +94,7 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 ## Security and search
 
 - **Content Security Policy** (top of `index.html` and `404.html`): the page may only load files
-  from welda.club, Google Fonts and Cloudflare Analytics (and send the inquiry form to FormSubmit), and inline scripts are blocked. If you
+  from welda.club, Google Fonts and Cloudflare Analytics (and send the inquiry form to Web3Forms), and inline scripts are blocked. If you
   add a new outside service (an embed, a widget), its domain must be added there or it will be
   blocked; the quality check will flag it.
 - **Referrer policy:** outside sites only see that a visitor came from welda.club, not the full URL.
@@ -125,12 +125,12 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
   about 10 MB) and replace those files with the same names. It loads only when a visitor nears the section, plays
   muted on a loop while on screen, and has a pause button.
 - **Partnership inquiry form:** the "Partnership inquiry" button (Work with us) and "Start a partnership"
-  (Contact) open a pop-up form. Answers are emailed to `hello@welda.club` through FormSubmit
-  (formsubmit.co, free, no account). **One-time setup:** the first time the form is sent, FormSubmit emails
-  hello@welda.club an "Activate Form" link; click it, and every inquiry after that arrives as an email
-  (subject "New partnership inquiry from welda.club"; reply goes straight to the sender). To change the
-  choices, edit the `<option>` lines in the `inquiry` dialog in `index.html`. If sending ever fails, visitors
-  get a link that opens a pre-filled email instead.
+  (Contact) open a pop-up form. Answers are emailed to `hello@welda.club` through Web3Forms
+  (web3forms.com, free up to 250 inquiries a month), subject "New partnership inquiry from welda.club";
+  replying goes straight to the sender. It needs the Web3Forms **access key** for hello@welda.club in the
+  `access_key` line of the `inquiry` form in `index.html` (the key is meant to be public; it can only send to
+  that address). To get a new key, enter hello@welda.club at web3forms.com. To change the choices, edit the
+  `<option>` lines in the same form. If sending ever fails, visitors get a link that opens a pre-filled email.
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.

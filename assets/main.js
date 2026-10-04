@@ -363,7 +363,7 @@
 
   /* ---------- Partnership inquiry pop-up ----------
      The buttons are plain email links, so without JavaScript they still open an email to
-     hello@welda.club. With it, they open the form, which is sent through FormSubmit. */
+     hello@welda.club. With it, they open the form, which is sent through Web3Forms. */
   var inquiry = document.getElementById('inquiry');
   if (inquiry && typeof inquiry.showModal === 'function') {
     var iForm = inquiry.querySelector('form');
@@ -371,7 +371,7 @@
     var iDone = inquiry.querySelector('.inquiry__done');
     var iStatus = inquiry.querySelector('.inquiry__status');
     var iSend = iForm.querySelector('[type="submit"]');
-    var ENDPOINT = 'https://formsubmit.co/ajax/hello@welda.club';
+    var ENDPOINT = 'https://api.web3forms.com/submit';
 
     var setStatus = function (html, isError) {
       iStatus.innerHTML = html;
@@ -410,8 +410,8 @@
     iForm.addEventListener('submit', function (e) {
       e.preventDefault();
       var data = fields();
-      if (data._honey) { iBody.hidden = true; iDone.hidden = false; return; } // a bot filled the hidden field
-      delete data._honey;
+      if (data.botcheck) { iBody.hidden = true; iDone.hidden = false; return; } // a bot ticked the hidden box
+      delete data.botcheck;
       iSend.disabled = true;
       iSend.textContent = 'Sending...';
       setStatus('');
@@ -422,15 +422,7 @@
       })
         .then(function (r) { return r.json(); })
         .then(function (res) {
-          if (String(res.success) !== 'true') {
-            // FormSubmit answers this way until the "Activate Form" link it emails to hello@welda.club is clicked
-            if (/activat/i.test(res.message || '')) {
-              setStatus('Almost there: this form is waiting to be switched on. Please <a href="' + mailtoFallback(data) +
-                '">email us your details</a> at hello@welda.club for now.', true);
-              return;
-            }
-            throw new Error(res.message || 'not sent');
-          }
+          if (String(res.success) !== 'true') throw new Error(res.message || 'not sent');
           iBody.hidden = true;
           iDone.hidden = false;
           iDone.querySelector('button').focus();
