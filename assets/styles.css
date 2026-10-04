@@ -42,7 +42,7 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-padding-top: 80px; }
+html { scroll-padding-top: 80px; overflow-x: hidden; overflow-x: clip; }
 html:not(.lenis) { scroll-behavior: smooth; }
 
 body {
@@ -138,13 +138,13 @@ p + p { margin-top: 1rem; }
 
 /* ---------- Film grain ---------- */
 .grain {
-  position: fixed; inset: -50%; z-index: 90; pointer-events: none; opacity: .07;
+  position: fixed; inset: 0; z-index: 90; pointer-events: none; opacity: .07;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   animation: grain 1.2s steps(6) infinite;
 }
 @keyframes grain {
-  0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); }
-  60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+  0% { background-position: 0 0; } 20% { background-position: -13px 9px; } 40% { background-position: 9px -13px; }
+  60% { background-position: -9px -4px; } 80% { background-position: 13px 13px; } 100% { background-position: 0 0; }
 }
 
 /* ---------- Intro (once per visit) ---------- */

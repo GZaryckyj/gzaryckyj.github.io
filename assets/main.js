@@ -76,24 +76,32 @@
     if (!watchMap.has(watched)) watchMap.set(watched, []);
     watchMap.get(watched).push(el);
   });
-  if ('IntersectionObserver' in window && !reduce) {
-    var io = new IntersectionObserver(function (entries) {
-      var i = 0;
-      entries.forEach(function (e) {
-        if (!e.isIntersecting) return;
-        (watchMap.get(e.target) || []).forEach(function (el) {
+  // Checked directly against the screen on every scroll frame instead of IntersectionObserver,
+  // which is unreliable here: it ignores clipped elements in Chrome and did not fire in WebKit tests.
+  function revealVisible() {
+    var i = 0;
+    watchMap.forEach(function (els, watched) {
+      var r = watched.getBoundingClientRect();
+      if (r.width === 0 && r.height === 0) return;           // not displayed (e.g. hidden on phones)
+      if (r.top < vh * 0.92 && r.bottom > 0) {
+        els.forEach(function (el) {
           if (el.classList.contains('reveal') && !el.style.transitionDelay) el.style.transitionDelay = (i * 90) + 'ms';
           el.classList.add('is-visible');
           // clear the stagger once it has played, so hover effects respond instantly
           setTimeout(function () { el.style.transitionDelay = ''; }, 1600);
         });
-        io.unobserve(e.target);
+        watchMap.delete(watched);
         i++;
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-    watchMap.forEach(function (_, watched) { io.observe(watched); });
-  } else {
+      }
+    });
+  }
+  if (reduce) {
     revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+    watchMap.clear();
+  } else {
+    revealVisible();
+    window.addEventListener('scroll', function () { requestAnimationFrame(revealVisible); }, { passive: true });
+    window.addEventListener('resize', revealVisible);
   }
 
   /* ---------- Manifesto: split into words ---------- */
@@ -137,6 +145,7 @@
     if (lenis) lenis.raf(time);
     var y = window.scrollY;
     var dy = y - lastY;
+    if (dy !== 0 && watchMap.size) revealVisible();
     lastY = y;
     velocity += (dy - velocity) * 0.1;
 
@@ -292,9 +301,6 @@
       trackEl.addEventListener(ev, function () { hold(3000); }, { passive: true });
     });
 
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) { inView = entries[0].isIntersecting; }, { threshold: 0.2 }).observe(trackEl);
-    } else { inView = true; }
     carousel.addEventListener('mouseenter', function () { hovering = true; });
     carousel.addEventListener('mouseleave', function () { hovering = false; });
     trackEl.addEventListener('focusin', function () { focused = true; });
@@ -310,6 +316,8 @@
       var dt = lastT ? Math.min(64, t - lastT) / 1000 : 0;
       lastT = t;
       var now = Date.now();
+      var tr = trackEl.getBoundingClientRect();
+      inView = tr.bottom > 0 && tr.top < window.innerHeight;
       var moving = !userPaused && !hovering && !focused && inView && !document.hidden &&
                    now > holdUntil && now > smoothUntil && !down && !trackEl.classList.contains('is-dragging');
       if (moving) {

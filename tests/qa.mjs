@@ -69,12 +69,15 @@ for (const browserName of BROWSERS) {
     const where = `${browserName} ${vp.name}`;
     const context = await browser.newContext({ viewport: { width: vp.width, height: vp.height } });
     const page = await context.newPage();
+    // analytics only accepts reports from welda.club, so don't send any from the test server
+    await context.route(/cloudflareinsights\.com/, r => r.fulfill({ status: 200, contentType: 'text/javascript', body: '' }));
 
     page.on('pageerror', e => fail(where, `JavaScript error: ${e.message}`));
     let scanning = false; // the accessibility scanner fetches stylesheets itself; visitors never do
     page.on('console', m => {
       const t = m.text();
       if (!scanning && /content security policy|content-security-policy|csp/i.test(t)) fail(where, `security policy blocked something: ${t}`);
+      else if (m.type() === 'error' && !scanning) warn(where, `browser console error: ${t.slice(0, 200)}`);
     });
     page.on('response', r => {
       if (r.url().startsWith(BASE) && r.status() >= 400) fail(where, `missing file (${r.status()}): ${r.url().replace(BASE, '')}`);
@@ -108,6 +111,12 @@ for (const browserName of BROWSERS) {
       if (y >= h - 2) break;
       if (i % 20 === 19) { if (y === last) break; last = y; }
     }
+    const wheelY = await page.evaluate(() => Math.round(window.scrollY));
+    if (wheelY < 300) {
+      fail(where, `mouse-wheel scrolling did not move the page (scrollY=${wheelY})`);
+      // keep going with the keyboard so the remaining checks still mean something
+      for (let i = 0; i < 80; i++) { await page.keyboard.press('PageDown'); await page.waitForTimeout(60); }
+    }
     await page.waitForTimeout(2500);
 
     const hidden = await page.evaluate(() => [...document.querySelectorAll('.reveal, .img-reveal, .footer__word')]
@@ -117,7 +126,12 @@ for (const browserName of BROWSERS) {
     hidden.forEach(h => fail(where, `never appeared after scrolling: ${h}`));
 
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
-    if (overflow > 1) fail(where, `page scrolls sideways by ${overflow}px`);
+    if (overflow > 1) {
+      const culprits = await page.evaluate(() => [...document.querySelectorAll('body *')]
+        .filter(e => { const r = e.getBoundingClientRect(); return r.right > window.innerWidth + 1 && !e.closest('.carousel__track, .marquee, .partners__marquee'); })
+        .slice(0, 4).map(e => e.tagName.toLowerCase() + (e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).join('.') : '')));
+      fail(where, `page scrolls sideways by ${overflow}px (sticking out: ${culprits.join(', ') || 'unknown'})`);
+    }
 
     // carousel keeps moving
     await page.evaluate(() => document.querySelector('.carousel__head').scrollIntoView({ block: 'start' }));
