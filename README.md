@@ -12,6 +12,7 @@ A fast, single-page static site for Welda, hosted free on GitHub Pages.
 | `assets/vendor/` | Lenis smooth-scrolling library (MIT license), bundled so the site has no outside dependencies |
 | `assets/logo-monogram.svg` | The WC monogram used in the header area and footer |
 | `assets/brand/` | Original Welda logo files, kept for reference |
+| `assets/partners/` | Partner logos (single-color SVGs, tinted with the text color by CSS) |
 | `assets/images/` | Photos go here (see below) |
 | `CNAME` | Tells GitHub Pages to serve the site at `welda.club` |
 | `404.html` | "Page not found" page |
@@ -113,6 +114,9 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 - **Add a past event:** in `index.html`, copy one `<article class="event-card ...">` block inside the carousel,
   change the city, name and partner line, point it at a new photo (e.g. `past-7.jpg`), and update the
   `/ 06` total next to it.
+- **Partner logos:** add a transparent, single-color SVG (or PNG) to `assets/partners/`, then copy one
+  `<li>` in the partners section of `index.html` into all four copies of the list. Set `--ar` to the
+  logo's width divided by its height and `--h` to its display height.
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.
@@ -122,8 +126,9 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 
 The copy was written from Welda's public pages and past event listings. Confirm:
 
-- Past experiences and collaborator names (Mandarin Oriental, Vivobarefoot, Sanctum, Regency Padel,
-  GutYa, Joia Beach, JMUVS) are all OK to list publicly.
+- Past experiences (Sanctum, Regency Padel, GutYa, Joia Beach, JMUVS) are OK to list publicly.
+- The "Trusted by" logo strip uses the partners from the partnerships deck: Mandarin Oriental,
+  Vivobarefoot, 1 Hotel Brooklyn Bridge, Gotham Gym and Free People Movement.
 - Both "Join the retreat list" buttons open the Flodesk sign-up form
   (`https://weldaclubretreat.myflodesk.com/retreatform01`) in a new tab.
 - The contact buttons open an email to `hello@welda.club`. Make sure that address exists
