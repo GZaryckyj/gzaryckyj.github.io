@@ -193,6 +193,18 @@
       2000
     ]
   },
+  "hero-7": {
+    "source": "177daf1cd8ec09b2d35c52f88345eb9f33cada602431677dabedb805a906c7e2",
+    "widths": [
+      640,
+      1024,
+      1333
+    ],
+    "size": [
+      1333,
+      2000
+    ]
+  },
   "hero": {
     "source": "499bd07a5d12d505518807eaae26b520fb65e66388a8e4a3b29686afe6ad9932",
     "widths": [
