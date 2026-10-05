@@ -37,7 +37,7 @@ update it if the picture changes.
 
 | Filename | Where it shows | Best shot |
 |---|---|---|
-| `hero.jpg`, `hero-2.jpg`, `hero-3.jpg`, `hero-4.jpg` | Full-screen top slideshow, in that order | Wide (landscape), atmospheric shots; the left side sits behind the headline |
+| `hero.jpg`, `hero-2.jpg` to `hero-6.jpg` | Full-screen top slideshow, in that order | Wide (landscape) shots work best; the left side sits behind the headline |
 | `about.jpg` | "Our story" (tall) | Georgia, or a candid community moment |
 | `about-2.jpg` | Small overlapping photo | Detail shot: mat, coffee, journal |
 | `format-city.jpg` | "City mornings" card | NYC rooftop session |
@@ -73,7 +73,7 @@ All five set to **DNS only** (grey cloud). Leave the Google email records alone.
 Inspired by luxury wellness sites like Remedy Place (smooth scrolling, moody emerald palette) and Equinox (photo-led, refined hover effects):
 
 - **Intro:** the monogram and wordmark fade in, then the screen lifts away. Plays once per visit.
-- **Hero:** the headline rises line by line from behind a mask; behind it, four photos crossfade every 6.5 seconds with a slow
+- **Hero:** the headline rises line by line from behind a mask; behind it, six photos crossfade every 6.5 seconds with a slow
   settle (bars and a pause button at the bottom right; it pauses off screen). Change `HERO_MS` in `assets/main.js` for the timing.
 - **Smooth scrolling** (Lenis) gives the whole page a soft, gliding feel.
 - **Manifesto:** "Our belief" text lights up word by word as you scroll.

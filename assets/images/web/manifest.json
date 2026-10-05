@@ -144,7 +144,7 @@
     ]
   },
   "hero-3": {
-    "source": "7af82cb453ef75025303a25a8a7a6fcbe39b3c92fac4cce0fd931bfdfefb02a9",
+    "source": "5bf85d00c611a0ce19acedf52decc364044f76bd365f8c962f3d9fd8e5d3a179",
     "widths": [
       640,
       1024,
@@ -157,16 +157,40 @@
     ]
   },
   "hero-4": {
-    "source": "5bf85d00c611a0ce19acedf52decc364044f76bd365f8c962f3d9fd8e5d3a179",
+    "source": "a93f1ce2b7e974c16a3058b19c28ea21ac20b12364c97ed015248a84ee754689",
     "widths": [
       640,
       1024,
       1600,
-      1920
+      2000
     ],
     "size": [
-      1920,
-      1080
+      2000,
+      1333
+    ]
+  },
+  "hero-5": {
+    "source": "6c44c1d73a49f9937348941627175edf90ef6701757e4fd882d692de976dd2ec",
+    "widths": [
+      640,
+      1024,
+      1500
+    ],
+    "size": [
+      1500,
+      2000
+    ]
+  },
+  "hero-6": {
+    "source": "d6d7f41613ac277193f5b1d962e8a09652b31d6fafd046b27ce727051334c9c1",
+    "widths": [
+      640,
+      1024,
+      1333
+    ],
+    "size": [
+      1333,
+      2000
     ]
   },
   "hero": {
