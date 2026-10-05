@@ -16,6 +16,9 @@ A fast, single-page static site for Welda, hosted free on GitHub Pages.
 | `assets/images/` | Photos go here (see below) |
 | `CNAME` | Tells GitHub Pages to serve the site at `welda.club` |
 | `404.html` | "Page not found" page |
+| `privacy.html` | Privacy policy |
+| `assets/fonts/` | The three fonts, served from the site |
+| `tools/optimize-images.py` | Builds the lighter web versions of the photos |
 | `robots.txt`, `sitemap.xml` | Tell search engines what to index |
 | `assets/head.js` | Tiny script that runs before the page draws (animations and intro) |
 | `assets/logo.png` | Square logo used by search engines |
@@ -25,7 +28,12 @@ A fast, single-page static site for Welda, hosted free on GitHub Pages.
 
 The site works without photos (it shows soft color gradients instead), but it looks best with them.
 Export photos from Google Drive / Instagram, rename them exactly as below, and drop them into
-`assets/images/`. JPG, about 2000px wide for the big ones and 1200px for the rest, keeps the site fast.
+`assets/images/` (JPG, about 2000px wide for the big ones and 1200px for the rest). These JPGs are the
+originals: visitors get lighter WebP copies at several sizes from `assets/images/web/`, built by
+`python3 tools/optimize-images.py` (needs `pip install pillow`). **After adding or replacing a photo, run
+that script (or ask Claude to)**; the quality check fails with a reminder if a photo changed without it.
+Each photo also has a short description (`alt` text in `index.html`) for screen readers and Google;
+update it if the picture changes.
 
 | Filename | Where it shows | Best shot |
 |---|---|---|
@@ -36,7 +44,6 @@ Export photos from Google Drive / Instagram, rename them exactly as below, and d
 | `format-weekend.jpg` | "Weekend gatherings" card | Miami court or beach day |
 | `format-retreat.jpg` | "Retreats" card | Nature, travel, a destination |
 | `quote.jpg` | "Presence, not perfection" banner | Calm, wide, not busy |
-| `retreat.jpg` | Not shown at the moment (the Retreats section uses the video below) | Spare scenic shot |
 | `gallery-1.jpg` to `gallery-6.jpg` | Instagram grid | Six favorite Instagram posts (square) |
 | `past-1.jpg` to `past-6.jpg` | Past experiences carousel | One photo per event, in carousel order (portrait, about 4:5) |
 
@@ -94,7 +101,7 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 ## Security and search
 
 - **Content Security Policy** (top of `index.html` and `404.html`): the page may only load files
-  from welda.club, Google Fonts and Cloudflare Analytics (and send the inquiry form to Web3Forms), and inline scripts are blocked. If you
+  from welda.club and Cloudflare Analytics (and send the inquiry form to Web3Forms), and inline scripts are blocked. If you
   add a new outside service (an embed, a widget), its domain must be added there or it will be
   blocked; the quality check will flag it.
 - **Referrer policy:** outside sites only see that a visitor came from welda.club, not the full URL.
@@ -107,10 +114,11 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 ## Editing later
 
 - **Text:** open `index.html` on github.com, click the pencil icon, edit, and commit. The live site updates in about a minute.
-- **Photos:** upload a new file with the same name into `assets/images/` to replace it.
+- **Photos:** upload a new file with the same name into `assets/images/`, then rebuild the web versions (see "Add the photos").
 - **Colors / fonts:** change the values at the top of `assets/styles.css`. The brand palette, taken from the logo files:
   Welda green `#0A2911`, deep green-black `#051609`, gold `#C2A17F`, cream `#E4D9CA`.
-  Fonts: Playfair Display (headings), IBM Plex Mono (labels), DM Sans (body).
+  Fonts: Playfair Display (headings), IBM Plex Mono (labels), DM Sans (body), served from `assets/fonts/`
+  (no Google Fonts request; free SIL Open Font License, see the LICENSE files there).
 - **Add a past event:** in `index.html`, copy one `<article class="event-card ...">` block inside the carousel,
   change the city, name and partner line, point it at a new photo (e.g. `past-7.jpg`), and update the
   `/ 06` total next to it.
@@ -120,7 +128,7 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
   raise the animation duration on `.partners__track` in `styles.css` (currently `90s` for 11 logos)
   so the strip keeps the same gentle speed.
 - **Retreat video:** lives in `assets/video/`: `jamaica-retreat.mp4` (1080p, desktop),
-  `jamaica-retreat-720.mp4` (phones) and `jamaica-retreat-poster.jpg` (the still shown before it plays and for
+  `jamaica-retreat-720.mp4` (phones) and `jamaica-retreat-poster.webp` (the still shown before it plays and for
   visitors with reduce motion on). To swap it, export a short silent loop (10 to 30 seconds, H.264 MP4, under
   about 10 MB) and replace those files with the same names. It loads only when a visitor nears the section, plays
   muted on a loop while on screen, and has a pause button.
@@ -134,7 +142,10 @@ each run (open the run, then "Artifacts"). Run it by hand any time from Actions,
 - **Retreat list link:** search `index.html` for `myflodesk` to change the form link (two buttons).
 - **Analytics:** Cloudflare Web Analytics snippet at the bottom of `index.html` and `404.html`. View visits in
   Georgia's Cloudflare under Analytics & Logs, then Web Analytics.
-- **Events link:** the "Events" menu link, "View the calendar" and the Contact list point to `https://luma.com/user/weldaclub`.
+- **Events link:** the "Events" menu link, "View the calendar" and the Contact list's "Tickets & Events" row
+  point to `https://luma.com/user/weldaclub` (Luma is the only events platform on the site).
+- **Privacy page:** `privacy.html`, linked from the inquiry form and the footer. Update it (and its date) if a
+  new service is added, for example a newsletter tool.
 - **Gold buttons:** the header and hero gold buttons say "Work with us" and jump to the `#work` section.
 
 ## Please double-check before launch

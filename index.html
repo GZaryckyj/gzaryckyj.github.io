@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Security: only load files from this site, Google Fonts and Cloudflare Analytics -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://static.cloudflareinsights.com https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests">
+  <!-- Security: only load files from this site and Cloudflare Analytics (and send the inquiry form to Web3Forms) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com https://static.cloudflareinsights.com https://api.web3forms.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>Welda | More than wellness</title>
   <meta name="description" content="Welda Club is a lifestyle wellness community of 2,000+ members across New York and South Florida, hosting thoughtfully curated events, destination retreats and brand partnerships.">
@@ -22,9 +22,9 @@
 
   <link rel="icon" href="/assets/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="/assets/fonts/playfair-display-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/dm-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
   <link rel="stylesheet" href="/assets/vendor/lenis.css">
   <link rel="stylesheet" href="/assets/styles.css">
 
@@ -59,8 +59,7 @@
         ],
         "sameAs": [
           "https://www.instagram.com/weldaclub/",
-          "https://luma.com/user/weldaclub",
-          "https://www.eventbrite.com/o/welda-club-113642430241"
+          "https://luma.com/user/weldaclub"
         ]
       },
       {
@@ -110,7 +109,7 @@
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="hero__media" data-speed="0.25">
-        <div class="hero__img" style="--img: url('/assets/images/hero.jpg')"></div>
+        <div class="hero__img"><img src="/assets/images/web/hero-1600.webp" srcset="/assets/images/web/hero-640.webp 640w, /assets/images/web/hero-1024.webp 1024w, /assets/images/web/hero-1600.webp 1600w, /assets/images/web/hero-2400.webp 2400w" sizes="100vw" width="2400" height="1600" alt="A group resting on mats in savasana under a thatched beachfront pavilion in South Florida" fetchpriority="high" decoding="async"></div>
       </div>
       <div class="hero__content">
         <span class="monogram hero__mark hero-in" style="--d:0" role="img" aria-label="Welda Club monogram"></span>
@@ -159,10 +158,10 @@
         </div>
         <div class="about__media">
           <figure class="img-reveal photo--tall">
-            <div class="parallax-img" data-speed="0.12" style="--img: url('/assets/images/about.jpg')"></div>
+            <div class="parallax-img" data-speed="0.12"><img src="/assets/images/web/about-800.webp" srcset="/assets/images/web/about-480.webp 480w, /assets/images/web/about-800.webp 800w, /assets/images/web/about-1200.webp 1200w" sizes="(max-width: 860px) 100vw, 45vw" width="1200" height="1800" alt="Two women laughing together on the floor at a Welda gathering" loading="lazy" decoding="async"></div>
           </figure>
           <figure class="img-reveal photo--small">
-            <div class="parallax-img" data-speed="-0.08" style="--img: url('/assets/images/about-2.jpg'); --fallback: var(--fallback-2)"></div>
+            <div class="parallax-img" data-speed="-0.08" style="--fallback: var(--fallback-2)"><img src="/assets/images/web/about-2-700.webp" srcset="/assets/images/web/about-2-400.webp 400w, /assets/images/web/about-2-700.webp 700w" sizes="20vw" width="900" height="1350" alt="An iced coffee on a wooden table" loading="lazy" decoding="async"></div>
           </figure>
         </div>
       </div>
@@ -235,7 +234,7 @@
       <div class="retreats__split">
         <div class="retreats__media">
           <figure class="retreats__film img-reveal">
-            <video class="retreats__video" muted loop playsinline preload="none" poster="/assets/video/jamaica-retreat-poster.jpg" aria-label="Highlights from the inaugural Welda retreat in Jamaica">
+            <video class="retreats__video" muted loop playsinline preload="none" poster="/assets/video/jamaica-retreat-poster.webp" aria-label="Highlights from the inaugural Welda retreat in Jamaica">
               <source src="/assets/video/jamaica-retreat-720.mp4" type="video/mp4" media="(max-width: 860px)">
               <source src="/assets/video/jamaica-retreat.mp4" type="video/mp4">
             </video>
@@ -274,7 +273,7 @@
         <div class="formats">
           <article class="format reveal">
             <figure class="img-reveal format__img">
-              <div class="parallax-img" data-speed="0.06" style="--img: url('/assets/images/format-city.jpg'); --pos: center 38%"></div>
+              <div class="parallax-img" data-speed="0.06" style="--pos: center 38%"><img src="/assets/images/web/format-city-800.webp" srcset="/assets/images/web/format-city-480.webp 480w, /assets/images/web/format-city-800.webp 800w, /assets/images/web/format-city-1200.webp 1200w" sizes="(max-width: 860px) 100vw, 33vw" width="1200" height="1600" alt="A rooftop movement class in New York with the Manhattan skyline behind" loading="lazy" decoding="async"></div>
             </figure>
             <div class="format__body">
               <p class="format__tag">New York</p>
@@ -284,7 +283,7 @@
           </article>
           <article class="format reveal">
             <figure class="img-reveal format__img">
-              <div class="parallax-img" data-speed="0.06" style="--img: url('/assets/images/format-weekend.jpg'); --fallback: var(--fallback-2)"></div>
+              <div class="parallax-img" data-speed="0.06" style="--fallback: var(--fallback-2)"><img src="/assets/images/web/format-weekend-800.webp" srcset="/assets/images/web/format-weekend-480.webp 480w, /assets/images/web/format-weekend-800.webp 800w, /assets/images/web/format-weekend-1200.webp 1200w" sizes="(max-width: 860px) 100vw, 33vw" width="1400" height="933" alt="Guests doing a mat workout on a blue padel court in South Florida" loading="lazy" decoding="async"></div>
             </figure>
             <div class="format__body">
               <p class="format__tag">South Florida</p>
@@ -294,7 +293,7 @@
           </article>
           <article class="format reveal">
             <figure class="img-reveal format__img">
-              <div class="parallax-img" data-speed="0.06" style="--img: url('/assets/images/format-retreat.jpg'); --fallback: var(--fallback-3)"></div>
+              <div class="parallax-img" data-speed="0.06" style="--fallback: var(--fallback-3)"><img src="/assets/images/web/format-retreat-800.webp" srcset="/assets/images/web/format-retreat-480.webp 480w, /assets/images/web/format-retreat-800.webp 800w, /assets/images/web/format-retreat-1200.webp 1200w" sizes="(max-width: 860px) 100vw, 33vw" width="1400" height="1050" alt="Four women journaling together on a boat on a mountain lake" loading="lazy" decoding="async"></div>
             </figure>
             <div class="format__body">
               <p class="format__tag">Jamaica &amp; beyond</p>
@@ -318,37 +317,37 @@
       <div class="carousel" data-carousel>
         <div class="carousel__track" tabindex="0" role="region" aria-label="Past experiences (scroll sideways)" data-lenis-prevent-horizontal>
             <article class="event-card reveal">
-              <figure class="event-card__img"><div style="--img: url('/assets/images/past-1.jpg')"></div><span class="event-card__num">01</span></figure>
+              <figure class="event-card__img"><div><img src="/assets/images/web/past-1-700.webp" srcset="/assets/images/web/past-1-400.webp 400w, /assets/images/web/past-1-700.webp 700w, /assets/images/web/past-1-1000.webp 1000w" sizes="(max-width: 560px) 80vw, 340px" width="1000" height="1502" alt="Two people resting on the grass after a workout, with skyscrapers behind them" loading="lazy" decoding="async"></div><span class="event-card__num">01</span></figure>
               <p class="event-card__city">New York</p>
               <h4 class="event-card__name">Morning movement on the Mandarin Oriental rooftop</h4>
               <p class="event-card__meta">with Sanctum &amp; Vivobarefoot</p>
             </article>
             <article class="event-card reveal">
-              <figure class="event-card__img"><div style="--img: url('/assets/images/past-2.jpg'); --pos: center 30%; --fallback: var(--fallback-2)"></div><span class="event-card__num">02</span></figure>
+              <figure class="event-card__img"><div style="--pos: center 30%; --fallback: var(--fallback-2)"><img src="/assets/images/web/past-2-700.webp" srcset="/assets/images/web/past-2-400.webp 400w, /assets/images/web/past-2-700.webp 700w, /assets/images/web/past-2-1000.webp 1000w" sizes="(max-width: 560px) 80vw, 340px" width="1000" height="1500" alt="A woman cheering with her arms raised, sitting cross-legged on a court" loading="lazy" decoding="async"></div><span class="event-card__num">02</span></figure>
               <p class="event-card__city">Miami</p>
               <h4 class="event-card__name">The Court Experience: padel, pickleball, pilates &amp; workshops</h4>
               <p class="event-card__meta">with Regency Padel &amp; GutYa</p>
             </article>
             <article class="event-card reveal">
-              <figure class="event-card__img"><div style="--img: url('/assets/images/past-3.jpg'); --fallback: var(--fallback-3)"></div><span class="event-card__num">03</span></figure>
+              <figure class="event-card__img"><div style="--fallback: var(--fallback-3)"><img src="/assets/images/web/past-3-700.webp" srcset="/assets/images/web/past-3-400.webp 400w, /assets/images/web/past-3-700.webp 700w, /assets/images/web/past-3-1000.webp 1000w" sizes="(max-width: 560px) 80vw, 340px" width="1000" height="1333" alt="A rooftop yoga class holding downward dog, with Miami Beach buildings behind" loading="lazy" decoding="async"></div><span class="event-card__num">03</span></figure>
               <p class="event-card__city">Miami Beach</p>
               <h4 class="event-card__name">Sunrise Rooftop Flow: yoga, breathwork &amp; journaling</h4>
               <p class="event-card__meta">at Bon Bouquet Caf&eacute;</p>
             </article>
             <article class="event-card reveal">
-              <figure class="event-card__img"><div style="--img: url('/assets/images/past-4.jpg')"></div><span class="event-card__num">04</span></figure>
+              <figure class="event-card__img"><div><img src="/assets/images/web/past-4-700.webp" srcset="/assets/images/web/past-4-400.webp 400w, /assets/images/web/past-4-700.webp 700w, /assets/images/web/past-4-1000.webp 1000w" sizes="(max-width: 560px) 80vw, 340px" width="1000" height="1500" alt="Three women in matching green activewear laughing on a palm-lined beach path" loading="lazy" decoding="async"></div><span class="event-card__num">04</span></figure>
               <p class="event-card__city">Miami</p>
               <h4 class="event-card__name">Welda x Joia Beach: a private beach day of movement and music</h4>
               <p class="event-card__meta">with Joia Beach</p>
             </article>
             <article class="event-card reveal">
-              <figure class="event-card__img"><div style="--img: url('/assets/images/past-5.jpg'); --fallback: var(--fallback-2)"></div><span class="event-card__num">05</span></figure>
+              <figure class="event-card__img"><div style="--fallback: var(--fallback-2)"><img src="/assets/images/web/past-5-700.webp" srcset="/assets/images/web/past-5-400.webp 400w, /assets/images/web/past-5-700.webp 700w, /assets/images/web/past-5-1000.webp 1000w" sizes="(max-width: 560px) 80vw, 340px" width="1000" height="1500" alt="A guided breathwork session, with guests on mats wearing headphones" loading="lazy" decoding="async"></div><span class="event-card__num">05</span></figure>
               <p class="event-card__city">Miami</p>
               <h4 class="event-card__name">The Longevity Edit</h4>
               <p class="event-card__meta">with JMUVS</p>
             </article>
             <article class="event-card reveal">
-              <figure class="event-card__img"><div style="--img: url('/assets/images/past-6.jpg'); --fallback: var(--fallback-3)"></div><span class="event-card__num">06</span></figure>
+              <figure class="event-card__img"><div style="--fallback: var(--fallback-3)"><img src="/assets/images/web/past-6-700.webp" srcset="/assets/images/web/past-6-400.webp 400w, /assets/images/web/past-6-700.webp 700w, /assets/images/web/past-6-1000.webp 1000w" sizes="(max-width: 560px) 80vw, 340px" width="1000" height="1333" alt="A rooftop yoga class stretching in side angle pose under a cloudy sky" loading="lazy" decoding="async"></div><span class="event-card__num">06</span></figure>
               <p class="event-card__city">New York</p>
               <h4 class="event-card__name">Rooftop Yoga &amp; Morning Social</h4>
               <p class="event-card__meta">community morning</p>
@@ -421,7 +420,7 @@
     <!-- ============ QUOTE ============ -->
     <section class="quote">
       <div class="quote__media" data-speed="0.3">
-        <div class="quote__img" style="--img: url('/assets/images/quote.jpg')"></div>
+        <div class="quote__img"><img src="/assets/images/web/quote-1280.webp" srcset="/assets/images/web/quote-800.webp 800w, /assets/images/web/quote-1280.webp 1280w, /assets/images/web/quote-1620.webp 1620w" sizes="100vw" width="1620" height="1080" alt="" loading="lazy" decoding="async"></div>
       </div>
       <blockquote class="quote__text">
         <p class="split-lines on-scroll">
@@ -443,12 +442,12 @@
           <a href="https://www.instagram.com/weldaclub/" class="link-arrow reveal" target="_blank" rel="noopener">Follow on Instagram</a>
         </div>
         <div class="gram__grid">
-          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-1.jpg')"></span></a>
-          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-2.jpg'); --fallback: var(--fallback-2)"></span></a>
-          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-3.jpg'); --fallback: var(--fallback-3)"></span></a>
-          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-4.jpg'); --fallback: var(--fallback-2)"></span></a>
-          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-5.jpg')"></span></a>
-          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Welda on Instagram"><span style="--img: url('/assets/images/gallery-6.jpg'); --fallback: var(--fallback-3)"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="A group running across the Brooklyn Bridge (Welda on Instagram)"><span><img src="/assets/images/web/gallery-1-700.webp" srcset="/assets/images/web/gallery-1-400.webp 400w, /assets/images/web/gallery-1-700.webp 700w, /assets/images/web/gallery-1-900.webp 900w" sizes="(max-width: 560px) 50vw, 17vw" width="900" height="1350" alt="A group running across the Brooklyn Bridge" loading="lazy" decoding="async"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Three women jumping for joy by the East River (Welda on Instagram)"><span style="--fallback: var(--fallback-2)"><img src="/assets/images/web/gallery-2-700.webp" srcset="/assets/images/web/gallery-2-400.webp 400w, /assets/images/web/gallery-2-700.webp 700w, /assets/images/web/gallery-2-900.webp 900w" sizes="(max-width: 560px) 50vw, 17vw" width="900" height="1350" alt="Three women jumping for joy by the East River" loading="lazy" decoding="async"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="A strawberry tart on a candlelit table beside a lake (Welda on Instagram)"><span style="--fallback: var(--fallback-3)"><img src="/assets/images/web/gallery-3-700.webp" srcset="/assets/images/web/gallery-3-400.webp 400w, /assets/images/web/gallery-3-700.webp 700w, /assets/images/web/gallery-3-900.webp 900w" sizes="(max-width: 560px) 50vw, 17vw" width="900" height="1350" alt="A strawberry tart on a candlelit table beside a lake" loading="lazy" decoding="async"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="Two Welda Club iced drinks raised in a toast (Welda on Instagram)"><span style="--fallback: var(--fallback-2)"><img src="/assets/images/web/gallery-4-700.webp" srcset="/assets/images/web/gallery-4-400.webp 400w, /assets/images/web/gallery-4-700.webp 700w, /assets/images/web/gallery-4-900.webp 900w" sizes="(max-width: 560px) 50vw, 17vw" width="900" height="600" alt="Two Welda Club iced drinks raised in a toast" loading="lazy" decoding="async"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="A DJ smiling behind the decks at a beach club (Welda on Instagram)"><span><img src="/assets/images/web/gallery-5-700.webp" srcset="/assets/images/web/gallery-5-400.webp 400w, /assets/images/web/gallery-5-700.webp 700w, /assets/images/web/gallery-5-900.webp 900w" sizes="(max-width: 560px) 50vw, 17vw" width="900" height="1350" alt="A DJ smiling behind the decks at a beach club" loading="lazy" decoding="async"></span></a>
+          <a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener" class="gram__item reveal" aria-label="A woman journaling on the steps down to clear water (Welda on Instagram)"><span style="--fallback: var(--fallback-3)"><img src="/assets/images/web/gallery-6-700.webp" srcset="/assets/images/web/gallery-6-400.webp 400w, /assets/images/web/gallery-6-700.webp 700w, /assets/images/web/gallery-6-900.webp 900w" sizes="(max-width: 560px) 50vw, 17vw" width="900" height="1200" alt="A woman journaling on the steps down to clear water" loading="lazy" decoding="async"></span></a>
         </div>
       </div>
     </section>
@@ -545,8 +544,7 @@
           <a class="contact__big" href="mailto:hello@welda.club">hello@welda.club</a>
           <ul class="contact__links">
             <li><a href="https://www.instagram.com/weldaclub/" target="_blank" rel="noopener">Instagram <span>@weldaclub</span></a></li>
-            <li><a href="https://luma.com/user/weldaclub" target="_blank" rel="noopener">Events <span>Luma</span></a></li>
-            <li><a href="https://www.eventbrite.com/o/welda-club-113642430241" target="_blank" rel="noopener">Tickets <span>Eventbrite</span></a></li>
+            <li><a href="https://luma.com/user/weldaclub" target="_blank" rel="noopener">Tickets &amp; Events <span>Luma</span></a></li>
           </ul>
           <a class="btn magnetic" href="mailto:hello@welda.club?subject=Partnership%20inquiry" data-open-inquiry>Start a partnership</a>
         </div>
@@ -622,6 +620,7 @@
             <button class="btn" type="submit">Send inquiry</button>
             <p class="inquiry__status" role="status" aria-live="polite"></p>
           </div>
+          <p class="inquiry__privacy">We only use these details to reply to your inquiry. See our <a href="/privacy.html" target="_blank">privacy policy</a>.</p>
         </form>
       </div>
       <div class="inquiry__done" hidden>
@@ -650,7 +649,7 @@
       </nav>
     </div>
     <div class="footer__word" aria-hidden="true"><span>WELDACLUB</span></div>
-    <p class="footer__legal container">&copy; <span id="year">2026</span> Welda Club. All rights reserved.</p>
+    <p class="footer__legal container">&copy; <span id="year">2026</span> Welda Club. All rights reserved. <a href="/privacy.html">Privacy</a></p>
   </footer>
 
   <script src="/assets/vendor/lenis.min.js" defer></script>

@@ -1,0 +1,230 @@
+{
+  "about-2": {
+    "source": "f775176b2f461f5439befd433e3c18ce4f6e33ff8024f56e2a85914e2600841d",
+    "widths": [
+      400,
+      700
+    ],
+    "size": [
+      900,
+      1350
+    ]
+  },
+  "about": {
+    "source": "1ad3704d19a5ff60c00ef431db0ff9675bcd9527aa84f876ae8d8ff6be3b6532",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "size": [
+      1200,
+      1800
+    ]
+  },
+  "format-city": {
+    "source": "1d55a03ff05c0a840d17f74076a3fd6164a7f8504cd6166e71b86195b91e8c8c",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "size": [
+      1200,
+      1600
+    ]
+  },
+  "format-retreat": {
+    "source": "3c18d002fa0496c693d2c6e3a4f826b1d6ecc151d25b3fd2830293ebad9c88c6",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "size": [
+      1400,
+      1050
+    ]
+  },
+  "format-weekend": {
+    "source": "7ea5e0167cbb566bd092d35d059af94672491f206ac03f1ed6abbc166a9a360d",
+    "widths": [
+      480,
+      800,
+      1200
+    ],
+    "size": [
+      1400,
+      933
+    ]
+  },
+  "gallery-1": {
+    "source": "90044d1ceaf9aa24c73ff17bc9e62bb422b85e8b9b7e2f4b672af433bcb82627",
+    "widths": [
+      400,
+      700,
+      900
+    ],
+    "size": [
+      900,
+      1350
+    ]
+  },
+  "gallery-2": {
+    "source": "a79d37d7de28992271ecd1290027be3f3fbb86cb72be9c3474323be858766d60",
+    "widths": [
+      400,
+      700,
+      900
+    ],
+    "size": [
+      900,
+      1350
+    ]
+  },
+  "gallery-3": {
+    "source": "026496a4ca7c30b1346a8fb6b4b8f9d5483d486144bbade40396da7c9aab50ec",
+    "widths": [
+      400,
+      700,
+      900
+    ],
+    "size": [
+      900,
+      1350
+    ]
+  },
+  "gallery-4": {
+    "source": "4090d853744559f0e2f0bc1b16081ced68bad65d20d5608177099fb3a5462b1a",
+    "widths": [
+      400,
+      700,
+      900
+    ],
+    "size": [
+      900,
+      600
+    ]
+  },
+  "gallery-5": {
+    "source": "187c1d79927e690f2088da3b8d9259dd6187b6f0c0c635b68978293d5ae2bb97",
+    "widths": [
+      400,
+      700,
+      900
+    ],
+    "size": [
+      900,
+      1350
+    ]
+  },
+  "gallery-6": {
+    "source": "11304b945190d4fe9414351f54ed8f8b4ca90fa9a673047b1ee9d40217a34389",
+    "widths": [
+      400,
+      700,
+      900
+    ],
+    "size": [
+      900,
+      1200
+    ]
+  },
+  "hero": {
+    "source": "499bd07a5d12d505518807eaae26b520fb65e66388a8e4a3b29686afe6ad9932",
+    "widths": [
+      640,
+      1024,
+      1600,
+      2400
+    ],
+    "size": [
+      2400,
+      1600
+    ]
+  },
+  "past-1": {
+    "source": "7d73fcf4694a27e29e47ab9bee3f100929acf0721d54525a20948ca6bff817d9",
+    "widths": [
+      400,
+      700,
+      1000
+    ],
+    "size": [
+      1000,
+      1502
+    ]
+  },
+  "past-2": {
+    "source": "413edbbd385765e5d5a38c4a916d78511bc9069fe6af15a5f6991c8e79540217",
+    "widths": [
+      400,
+      700,
+      1000
+    ],
+    "size": [
+      1000,
+      1500
+    ]
+  },
+  "past-3": {
+    "source": "b6ab34df798dc4140da95e85f44e421c5a261eca8ae1673e3858c8eb878bab91",
+    "widths": [
+      400,
+      700,
+      1000
+    ],
+    "size": [
+      1000,
+      1333
+    ]
+  },
+  "past-4": {
+    "source": "6962f7a8b16b2f3d9588c81b45df47b4ac65377ea612253be9fd36108c4e31ef",
+    "widths": [
+      400,
+      700,
+      1000
+    ],
+    "size": [
+      1000,
+      1500
+    ]
+  },
+  "past-5": {
+    "source": "4c04fe54b0de8607b54858913d82d788e6234acce450489f5fa99cf4939263b5",
+    "widths": [
+      400,
+      700,
+      1000
+    ],
+    "size": [
+      1000,
+      1500
+    ]
+  },
+  "past-6": {
+    "source": "fe807e1e069d949a1aa8c2dc801de6e2f4c2f3203adb9c7a872d40025c961559",
+    "widths": [
+      400,
+      700,
+      1000
+    ],
+    "size": [
+      1000,
+      1333
+    ]
+  },
+  "quote": {
+    "source": "ed082465a21c17aa2e816984f6a7e419632a725f40977a669263e3d3f8253799",
+    "widths": [
+      800,
+      1280,
+      1620
+    ],
+    "size": [
+      1620,
+      1080
+    ]
+  }
+}

@@ -9,7 +9,7 @@
 //   - checks the past experiences carousel is moving
 //   - runs an accessibility scan (fails only on critical issues)
 //   - saves a full-page screenshot to qa-results/
-// Then it checks every outside link (Luma, Flodesk, Eventbrite, Instagram) still works.
+// Then it checks every outside link (Luma, Flodesk, Instagram) still works.
 
 import http from 'node:http';
 import fs from 'node:fs';
@@ -39,7 +39,8 @@ const warn = (where, msg) => warnings.push(`[${where}] ${msg}`);
 
 // ---------- tiny static server (same as GitHub Pages: files from the repo root) ----------
 const TYPES = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.mjs': 'text/javascript',
-  '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.webp': 'image/webp',
+  '.woff2': 'font/woff2',
   '.xml': 'application/xml', '.txt': 'text/plain', '.json': 'application/json',
   '.mp4': 'video/mp4', '.webm': 'video/webm' };
 const server = http.createServer((req, res) => {
@@ -96,13 +97,16 @@ for (const browserName of BROWSERS) {
     const headline = await page.evaluate(() => getComputedStyle(document.querySelector('.hero h1 .line__inner')).transform);
     if (headline !== 'none') fail(where, 'headline did not finish animating in');
 
-    // every photo file referenced on the page exists
-    const imgs = await page.evaluate(() => [...new Set([...document.querySelectorAll('[style*="--img"]')]
-      .map(e => (e.getAttribute('style').match(/url\('([^']+)'\)/) || [])[1]).filter(Boolean))]);
+    // every photo file referenced on the page exists (each size in srcset), and has a description
+    const imgs = await page.evaluate(() => [...new Set([...document.querySelectorAll('img')]
+      .flatMap(i => [i.getAttribute('src'), ...(i.getAttribute('srcset') || '').split(',').map(s => s.trim().split(' ')[0])])
+      .filter(Boolean))]);
     for (const src of imgs) {
       const r = await page.request.get(BASE + src);
       if (!r.ok()) fail(where, `photo missing: ${src}`);
     }
+    const noAlt = await page.evaluate(() => [...document.querySelectorAll('img:not([alt])')].map(i => i.getAttribute('src')));
+    noAlt.forEach(s => fail(where, `photo has no description (alt text): ${s}`));
 
     // scroll the whole page like a visitor (mouse wheel, so smooth scrolling is exercised too)
     await page.mouse.move(vp.width / 2, vp.height / 2);
@@ -172,6 +176,19 @@ for (const browserName of BROWSERS) {
     await context.close();
   }
   await browser.close();
+}
+
+// ---------- photos replaced without rebuilding their web versions ----------
+{
+  const crypto = await import('node:crypto');
+  const manifestPath = path.join(ROOT, 'assets/images/web/manifest.json');
+  const manifest = fs.existsSync(manifestPath) ? JSON.parse(fs.readFileSync(manifestPath, 'utf8')) : {};
+  for (const [name, info] of Object.entries(manifest)) {
+    const src = path.join(ROOT, 'assets/images', name + '.jpg');
+    if (!fs.existsSync(src)) continue;
+    const hash = crypto.createHash('sha256').update(fs.readFileSync(src)).digest('hex');
+    if (hash !== info.source) fail('photos', `${name}.jpg was replaced but its web versions were not rebuilt; run: python3 tools/optimize-images.py`);
+  }
 }
 
 // ---------- the 404 page ----------
