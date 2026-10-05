@@ -37,7 +37,7 @@ update it if the picture changes.
 
 | Filename | Where it shows | Best shot |
 |---|---|---|
-| `hero.jpg`, `hero-2.jpg` to `hero-6.jpg` | Full-screen top slideshow, in that order | Wide (landscape) shots work best; the left side sits behind the headline |
+| `hero.jpg`, `hero-2.jpg` to `hero-6.jpg` | Full-screen top slideshow (the order is set in the `hero__slide` lines of `index.html`; currently hero-2 plays first) | Wide (landscape) shots work best; the left side sits behind the headline |
 | `about.jpg` | "Our story" (tall) | Georgia, or a candid community moment |
 | `about-2.jpg` | Small overlapping photo | Detail shot: mat, coffee, journal |
 | `format-city.jpg` | "City mornings" card | NYC rooftop session |
