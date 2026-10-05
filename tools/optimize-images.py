@@ -20,7 +20,7 @@ OUT = SRC / 'web'
 
 # widths to build for each photo, chosen from how wide it shows on the page
 WIDTHS = {
-    'hero': [640, 1024, 1600, 2400],
+    'hero': [640, 1024, 1600, 2400],   # also used for hero-2, hero-3... (the top slideshow)
     'quote': [800, 1280, 1620],
     'about': [480, 800, 1200],
     'about-2': [400, 700],
@@ -42,7 +42,7 @@ def main():
             continue
         im = ImageOps.exif_transpose(Image.open(src)).convert('RGB')
         built = []
-        for w in WIDTHS.get(name, DEFAULT):
+        for w in WIDTHS.get(name, WIDTHS['hero'] if name.startswith('hero') else DEFAULT):
             w = min(w, im.width)
             if w in built:
                 continue

@@ -109,7 +109,12 @@
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="hero__media" data-speed="0.25">
-        <div class="hero__img"><img src="/assets/images/web/hero-1600.webp" srcset="/assets/images/web/hero-640.webp 640w, /assets/images/web/hero-1024.webp 1024w, /assets/images/web/hero-1600.webp 1600w, /assets/images/web/hero-2400.webp 2400w" sizes="100vw" width="2400" height="1600" alt="A group resting on mats in savasana under a thatched beachfront pavilion in South Florida" fetchpriority="high" decoding="async"></div>
+        <div class="hero__img" data-hero-slides>
+          <img class="hero__slide is-active" src="/assets/images/web/hero-1600.webp" srcset="/assets/images/web/hero-640.webp 640w, /assets/images/web/hero-1024.webp 1024w, /assets/images/web/hero-1600.webp 1600w, /assets/images/web/hero-2400.webp 2400w" sizes="100vw" width="2400" height="1600" alt="A group resting on mats in savasana under a thatched beachfront pavilion in South Florida" fetchpriority="high" decoding="async">
+          <img class="hero__slide" data-src="/assets/images/web/hero-2-1600.webp" data-srcset="/assets/images/web/hero-2-640.webp 640w, /assets/images/web/hero-2-1024.webp 1024w, /assets/images/web/hero-2-1600.webp 1600w, /assets/images/web/hero-2-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="Guests holding tree pose along a seaside pier at dusk in Jamaica" aria-hidden="true" decoding="async">
+          <img class="hero__slide" data-src="/assets/images/web/hero-3-1600.webp" data-srcset="/assets/images/web/hero-3-640.webp 640w, /assets/images/web/hero-3-1024.webp 1024w, /assets/images/web/hero-3-1600.webp 1600w, /assets/images/web/hero-3-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="Palm trees silhouetted against a golden sunset over the sea in Jamaica" aria-hidden="true" decoding="async">
+          <img class="hero__slide" data-src="/assets/images/web/hero-4-1600.webp" data-srcset="/assets/images/web/hero-4-640.webp 640w, /assets/images/web/hero-4-1024.webp 1024w, /assets/images/web/hero-4-1600.webp 1600w, /assets/images/web/hero-4-1920.webp 1920w" sizes="100vw" width="1920" height="1080" alt="Guests resting under blankets during a sound bath in Jamaica" aria-hidden="true" decoding="async">
+        </div>
       </div>
       <div class="hero__content">
         <span class="monogram hero__mark hero-in" style="--d:0" role="img" aria-label="Welda Club monogram"></span>
@@ -127,7 +132,16 @@
       <div class="hero__foot hero-in" style="--d:6" aria-hidden="true">
         <span>NY - South Florida</span>
         <span class="hero__scroll"><i></i>Scroll</span>
-        <span>Mindful living.</span>
+        <span></span>
+      </div>
+      <div class="hero__controls hero-in" style="--d:6">
+        <button class="hero__pause" type="button" aria-pressed="false" aria-label="Pause slideshow"><span class="carousel__play-icon" aria-hidden="true"></span></button>
+        <div class="hero__dots">
+          <button type="button" class="is-active" aria-label="Show photo 1 of 4" aria-current="true"><i></i></button>
+          <button type="button" aria-label="Show photo 2 of 4"><i></i></button>
+          <button type="button" aria-label="Show photo 3 of 4"><i></i></button>
+          <button type="button" aria-label="Show photo 4 of 4"><i></i></button>
+        </div>
       </div>
     </section>
 

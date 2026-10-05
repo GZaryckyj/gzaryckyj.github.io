@@ -97,9 +97,11 @@ for (const browserName of BROWSERS) {
     const headline = await page.evaluate(() => getComputedStyle(document.querySelector('.hero h1 .line__inner')).transform);
     if (headline !== 'none') fail(where, 'headline did not finish animating in');
 
-    // every photo file referenced on the page exists (each size in srcset), and has a description
+    // every photo file referenced on the page exists (each size in srcset, including slideshow photos
+    // that load later), and has a description
     const imgs = await page.evaluate(() => [...new Set([...document.querySelectorAll('img')]
-      .flatMap(i => [i.getAttribute('src'), ...(i.getAttribute('srcset') || '').split(',').map(s => s.trim().split(' ')[0])])
+      .flatMap(i => [i.getAttribute('src'), i.getAttribute('data-src'),
+        ...(i.getAttribute('srcset') || i.getAttribute('data-srcset') || '').split(',').map(s => s.trim().split(' ')[0])])
       .filter(Boolean))]);
     for (const src of imgs) {
       const r = await page.request.get(BASE + src);

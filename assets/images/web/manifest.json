@@ -130,6 +130,45 @@
       1200
     ]
   },
+  "hero-2": {
+    "source": "abc599b46b3250194c3ce64e87e6046a15a72078569e29e102671a504305b8a6",
+    "widths": [
+      640,
+      1024,
+      1600,
+      1920
+    ],
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "hero-3": {
+    "source": "7af82cb453ef75025303a25a8a7a6fcbe39b3c92fac4cce0fd931bfdfefb02a9",
+    "widths": [
+      640,
+      1024,
+      1600,
+      1920
+    ],
+    "size": [
+      1920,
+      1080
+    ]
+  },
+  "hero-4": {
+    "source": "5bf85d00c611a0ce19acedf52decc364044f76bd365f8c962f3d9fd8e5d3a179",
+    "widths": [
+      640,
+      1024,
+      1600,
+      1920
+    ],
+    "size": [
+      1920,
+      1080
+    ]
+  },
   "hero": {
     "source": "499bd07a5d12d505518807eaae26b520fb65e66388a8e4a3b29686afe6ad9932",
     "widths": [

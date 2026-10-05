@@ -334,6 +334,76 @@
     requestAnimationFrame(drift);
   }
 
+  /* ---------- Top slideshow: crossfades the hero photos ----------
+     Only the first photo loads with the page; each next one loads a slide ahead of time.
+     Pauses off screen, in a background tab, with the pause button, and (reduce motion) by default. */
+  var heroSlides = document.querySelector('[data-hero-slides]');
+  if (heroSlides) {
+    var slides = [].slice.call(heroSlides.querySelectorAll('.hero__slide'));
+    var hControls = document.querySelector('.hero__controls');
+    var hDots = [].slice.call(hControls.querySelectorAll('.hero__dots button'));
+    var hPause = hControls.querySelector('.hero__pause');
+    var HERO_MS = 6500;
+    var hCur = 0, hTimer = null, hStarted = 0, hLeft = HERO_MS, hRunning = false;
+    var hUserPaused = reduce, hOnScreen = true;
+    hControls.style.setProperty('--hero-dur', HERO_MS + 'ms');
+
+    var loadSlide = function (i) {
+      var s = slides[i];
+      if (s && s.getAttribute('data-srcset')) {
+        s.srcset = s.getAttribute('data-srcset');
+        s.src = s.getAttribute('data-src');
+        s.removeAttribute('data-srcset');
+        s.removeAttribute('data-src');
+      }
+    };
+    var heroSync = function () {
+      var run = !hUserPaused && hOnScreen && !document.hidden;
+      hPause.setAttribute('aria-pressed', hUserPaused ? 'true' : 'false');
+      hControls.classList.toggle('is-paused', !run);
+      if (run === hRunning) return;
+      hRunning = run;
+      if (run) {
+        hStarted = Date.now();
+        hTimer = setTimeout(function () { showSlide((hCur + 1) % slides.length); }, hLeft);
+      } else {
+        clearTimeout(hTimer);
+        hLeft = Math.max(0, hLeft - (Date.now() - hStarted));
+      }
+    };
+    var showSlide = function (i) {
+      loadSlide(i);
+      loadSlide((i + 1) % slides.length);
+      slides.forEach(function (s, k) {
+        s.classList.toggle('is-active', k === i);
+        if (k === i) s.removeAttribute('aria-hidden'); else s.setAttribute('aria-hidden', 'true');
+      });
+      hDots.forEach(function (d, k) {
+        d.classList.remove('is-active');
+        d.classList.toggle('is-done', k < i);
+        if (k === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+      });
+      void hDots[i].offsetWidth;            // restart the progress line
+      hDots[i].classList.add('is-active');
+      hCur = i;
+      clearTimeout(hTimer);
+      hRunning = false;
+      hLeft = HERO_MS;
+      heroSync();
+    };
+
+    hDots.forEach(function (d, k) { d.addEventListener('click', function () { showSlide(k); }); });
+    hPause.addEventListener('click', function () { hUserPaused = !hUserPaused; heroSync(); });
+    document.addEventListener('visibilitychange', heroSync);
+    var heroCheck = function () {
+      var on = heroSlides.getBoundingClientRect().bottom > 0;
+      if (on !== hOnScreen) { hOnScreen = on; heroSync(); }
+    };
+    window.addEventListener('scroll', function () { requestAnimationFrame(heroCheck); }, { passive: true });
+    window.addEventListener('load', function () { loadSlide(1); });
+    heroSync();
+  }
+
   /* ---------- Retreat video: loads as you approach, plays only while on screen ---------- */
   var film = document.querySelector('.retreats__film');
   var video = film && film.querySelector('video');
