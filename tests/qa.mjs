@@ -129,7 +129,7 @@ for (const browserName of BROWSERS) {
     }
     await page.waitForTimeout(2500);
 
-    const hidden = await page.evaluate(() => [...document.querySelectorAll('.reveal, .img-reveal, .footer__word')]
+    const hidden = await page.evaluate(() => [...document.querySelectorAll('.reveal, .img-reveal')]
       .filter(e => !e.closest('.carousel'))        // carousel cards appear as they drift into view
       .filter(e => !e.classList.contains('is-visible'))
       .map(e => (e.className + ' ' + (e.textContent || '').trim().slice(0, 40)).replace(/\s+/g, ' ')));

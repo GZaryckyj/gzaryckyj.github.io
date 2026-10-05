@@ -84,8 +84,7 @@ Inspired by luxury wellness sites like Remedy Place (smooth scrolling, moody eme
   pause button; change `SPEED` in `assets/main.js`). Swipe on phones; drag, arrows, trackpad or keyboard on desktop.
   Photos drift slightly as cards slide past, with a gold progress bar and an "01 / 06" counter.
 - **Details:** magnetic buttons, gold underline sweeps, cards that lift, a header that tucks away when you
-  scroll down and returns when you scroll up, a subtle film-grain texture, and an outlined WELDACLUB wordmark
-  that rises into the footer.
+  scroll down and returns when you scroll up, and a subtle film-grain texture.
 
 Visitors who have "reduce motion" turned on in their device settings get a calm, fully static version
 automatically. To soften the grain, lower `opacity` in `.grain` in `styles.css` (set `display: none` to remove it).

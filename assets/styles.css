@@ -512,13 +512,6 @@ html:not(.js) .marquee__track { animation: marquee 40s linear infinite; }
 .footer__nav { display: flex; gap: 1.6rem; flex-wrap: wrap; }
 .footer__nav a { text-decoration: none; font-family: var(--mono); font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; transition: color .3s; }
 .footer__nav a:hover { color: var(--gold); }
-.footer__word { margin-top: clamp(2.5rem, 6vw, 4.5rem); text-align: center; line-height: .8; overflow: hidden; }
-.footer__word span {
-  display: inline-block; font-family: var(--serif); font-size: clamp(2.6rem, 12.5vw, 13rem); letter-spacing: .03em; white-space: nowrap;
-  color: transparent; -webkit-text-stroke: 1px rgba(194, 161, 127, .45);
-}
-.js .footer__word span { transform: translateY(60%); opacity: 0; transition: transform 1.6s var(--ease-out), opacity 1.6s var(--ease-out); }
-.js .footer__word.is-visible span { transform: none; opacity: 1; }
 .footer__legal { margin-top: 2rem; font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; color: var(--text-soft); }
 
 /* ---------- Reveal on scroll ---------- */
@@ -608,7 +601,7 @@ html:not(.js) .marquee__track { animation: marquee 40s linear infinite; }
 .inquiry__status a { color: var(--gold); }
 .inquiry__privacy { margin-top: 1.1rem; font-size: .88rem; color: var(--text-soft); }
 .inquiry__privacy a, .footer__legal a { color: var(--gold); }
-.footer__legal a { margin-left: 1.2rem; }
+.footer__legal { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
 .inquiry__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .inquiry__done .btn { cursor: pointer; }
 @media (max-width: 860px) {
@@ -636,7 +629,7 @@ html:not(.js) .marquee__track { animation: marquee 40s linear infinite; }
 /* Respect "reduce motion" settings: everything shows instantly, nothing moves */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
-  .js .reveal, .js .hero-in, .js .split-lines .line__inner, .js .footer__word span { opacity: 1 !important; transform: none !important; }
+  .js .reveal, .js .hero-in, .js .split-lines .line__inner { opacity: 1 !important; transform: none !important; }
   .js .img-reveal { clip-path: none !important; }
   .js .img-reveal .parallax-img { scale: 1 !important; }
   .js .manifesto__text .w { color: var(--cream) !important; }

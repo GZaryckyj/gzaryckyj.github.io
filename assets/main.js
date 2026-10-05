@@ -67,7 +67,7 @@
   });
 
   /* ---------- Reveal on scroll (with a gentle stagger) ---------- */
-  var revealEls = document.querySelectorAll('.reveal, .img-reveal, .split-lines.on-scroll, .footer__word');
+  var revealEls = document.querySelectorAll('.reveal, .img-reveal, .split-lines.on-scroll');
   // Photos start fully clipped (the curtain), and Chrome/Edge treat a fully clipped element as
   // never on screen. So for photos we watch their unclipped container and reveal the photo(s) inside.
   var watchMap = new Map();
