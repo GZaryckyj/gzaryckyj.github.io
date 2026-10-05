@@ -1,0 +1,80 @@
+# Keeps the "Moments from the community" grid in sync with the latest @weldaclub Instagram posts.
+# Runs once a day and on demand (Actions tab, "Instagram grid", "Run workflow").
+# Setup and settings: README, "Instagram grid". If nothing new was posted, it changes nothing.
+name: Instagram grid
+
+on:
+  schedule:
+    - cron: "41 12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency: instagram-grid
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check the Instagram connection is set up
+        id: setup
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: |
+          if [ -z "$IG_TOKEN" ]; then
+            echo "::notice::Not connected to Instagram yet (no IG_TOKEN secret), so nothing to do. See README, 'Instagram grid'."
+          else
+            echo "ready=1" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Keep the access token from expiring
+        if: steps.setup.outputs.ready == '1'
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          GH_TOKEN: ${{ secrets.SECRETS_PAT }}
+        run: python3 tools/instagram-token.py
+
+      - uses: actions/setup-python@v5
+        if: steps.setup.outputs.ready == '1'
+        with:
+          python-version: "3.12"
+
+      - name: Install the image tool
+        if: steps.setup.outputs.ready == '1'
+        run: pip install --quiet pillow
+
+      - name: Update the grid
+        if: steps.setup.outputs.ready == '1'
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          IG_COUNT: "6"
+          IG_HASHTAG: ""        # e.g. "weldaclub" to only show posts tagged #weldaclub
+          IG_SKIP_VIDEOS: "0"   # "1" to leave out Reels and videos
+        run: python3 tools/instagram-sync.py
+
+      - name: Save the changes
+        if: steps.setup.outputs.ready == '1'
+        id: save
+        run: |
+          git add -A index.html assets/images/ig
+          if git diff --cached --quiet; then
+            echo "No new posts since the last update."
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Update the Instagram grid with the latest posts"
+          git push -q
+          echo "changed=1" >> "$GITHUB_OUTPUT"
+
+      - name: Publish the site
+        if: steps.save.outputs.changed == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null \
+            || echo "::warning::Could not start a site rebuild; the new posts appear with the next change to the site."

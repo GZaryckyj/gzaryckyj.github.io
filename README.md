@@ -19,6 +19,7 @@ A fast, single-page static site for Welda, hosted free on GitHub Pages.
 | `privacy.html` | Privacy policy |
 | `assets/fonts/` | The three fonts, served from the site |
 | `tools/optimize-images.py` | Builds the lighter web versions of the photos |
+| `tools/instagram-sync.py`, `tools/instagram-token.py`, `.github/workflows/instagram.yml` | Daily Instagram grid update (see "Instagram grid") |
 | `robots.txt`, `sitemap.xml` | Tell search engines what to index |
 | `assets/head.js` | Tiny script that runs before the page draws (animations and intro) |
 | `assets/logo.png` | Square logo used by search engines |
@@ -44,7 +45,7 @@ update it if the picture changes.
 | `format-weekend.jpg` | "Weekend gatherings" card | Miami court or beach day |
 | `format-retreat.jpg` | "Retreats" card | Nature, travel, a destination |
 | `quote.jpg` | "Presence, not perfection" banner | Calm, wide, not busy |
-| `gallery-1.jpg` to `gallery-6.jpg` | Instagram grid | Six favorite Instagram posts (square) |
+| `gallery-1.jpg` to `gallery-6.jpg` | Instagram grid until it is connected (see "Instagram grid") | Six favorite Instagram posts (square) |
 | `past-1.jpg` to `past-6.jpg` | Past experiences carousel | One photo per event, in carousel order (portrait, about 4:5) |
 
 ## 2. Put it on GitHub
@@ -98,6 +99,33 @@ photos or text that never appear when scrolling, sideways scrolling on phones, a
 critical accessibility problems, or dead outside links. Screenshots and the report are saved with
 each run (open the run, then "Artifacts"). Run it by hand any time from Actions, "Site QA",
 "Run workflow".
+
+## Instagram grid
+
+"Moments from the community" shows the latest 6 posts from @weldaclub, updated once a day by
+`.github/workflows/instagram.yml` (it saves light copies of the photos in `assets/images/ig/`, uses
+each caption as the photo description and links each tile to its post). Until it is connected, or if
+Instagram is ever unreachable, the grid simply keeps its last photos.
+
+**One-time setup** (needs the @weldaclub login, and the GitHub account that owns this repository):
+
+1. Go to developers.facebook.com, sign in, and choose **My Apps, Create app**. Name it (e.g. "Welda
+   website") and pick the use case **Manage messaging & content on Instagram**.
+2. In the app, open **Instagram, API setup with Instagram login**. Under **Generate access tokens**, click
+   **Add account**, sign in as @weldaclub and approve, then click **Generate token** and copy it.
+   (If it asks for a tester first: App roles, add @weldaclub as an Instagram tester, then accept the invite
+   in the Instagram app under Settings, Website permissions, Apps and websites, Tester invites.)
+3. In this repository on GitHub: **Settings, Secrets and variables, Actions, New repository secret**.
+   Name `IG_TOKEN`, paste the token, save.
+4. Recommended, so the token renews itself: GitHub **Settings, Developer settings, Personal access tokens,
+   Fine-grained tokens, Generate new token**. Only this repository; permission **Secrets: Read and write**;
+   the longest expiry offered. Save it as another repository secret named `SECRETS_PAT`.
+5. **Actions** tab, **Instagram grid**, **Run workflow**. The grid updates within a few minutes.
+
+**Settings** (in `.github/workflows/instagram.yml`): `IG_COUNT` (number of posts), `IG_HASHTAG` (only show
+posts with that hashtag, e.g. `weldaclub`), `IG_SKIP_VIDEOS` (`"1"` to leave out Reels). A red X on an
+"Instagram grid" run means the connection needs attention (most often an expired token: repeat steps 2
+and 3).
 
 ## Security and search
 
